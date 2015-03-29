@@ -1,6 +1,7 @@
 package coinbase
 
 import(
+  "errors"
   "testing"
 )
 
@@ -14,7 +15,10 @@ func TestListFills(t *testing.T) {
       t.Error(err)
     }
 
-    for _, _ = range fills {
+    for _, f := range fills {
+      if StructHasZeroValues(f) {
+        t.Error(errors.New("Zero value"))
+      } 
     }
   }
   params := ListFillsParams{
@@ -26,8 +30,10 @@ func TestListFills(t *testing.T) {
       t.Error(err)
     }
 
-    for _, _ = range fills {
+    for _, f := range fills {
+      if StructHasZeroValues(f) {
+        t.Error(errors.New("Zero value"))
+      } 
     }
   }
-
 }

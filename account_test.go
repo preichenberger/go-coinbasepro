@@ -1,14 +1,22 @@
 package coinbase
 
 import(
+  "errors"
   "testing"
 )
 
 func TestGetAccounts(t *testing.T) {
   client := NewTestClient()
-  _, err := client.GetAccounts()
+  accounts, err := client.GetAccounts()
   if err != nil {
     t.Error(err)
+  }
+
+  // Check for decoding issues
+  for _, a := range accounts {
+    if StructHasZeroValues(a) {
+      t.Error(errors.New("Zero value"))
+    } 
   }
 }
 
@@ -20,10 +28,15 @@ func TestGetAccount(t *testing.T) {
   } 
 
   for _, a := range accounts {
-    _, err := client.GetAccount(a.Id)   
+    account, err := client.GetAccount(a.Id)   
     if err != nil {
       t.Error(err)
     }
+  
+    // Check for decoding issues
+    if StructHasZeroValues(account) {
+      t.Error(errors.New("Zero value"))
+    } 
   }
 }
 func TestListAccountLedger(t *testing.T) {
@@ -41,7 +54,11 @@ func TestListAccountLedger(t *testing.T) {
         t.Error(err)
       }
 
-      for _, _ = range ledger {
+      for _, l := range ledger {
+        // Check for decoding issues
+        if StructHasZeroValues(l) {
+          t.Error(errors.New("Zero value"))
+        } 
       }
     }
   }
@@ -62,7 +79,11 @@ func TestListHolds(t *testing.T) {
         t.Error(err)
       }
 
-      for _, _ = range holds {
+      for _, h := range holds {
+        // Check for decoding issues
+        if StructHasZeroValues(h) {
+          t.Error(errors.New("Zero value"))
+        } 
       }
     }
   }

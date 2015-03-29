@@ -8,9 +8,15 @@ import(
 
 func TestGetProducts(t *testing.T) {
   client := NewTestClient()
-  _, err := client.GetProducts()
+  products, err := client.GetProducts()
   if err != nil {
     t.Error(err)
+  }
+
+  for _, p := range products {
+    if StructHasZeroValues(p) {
+      t.Error(errors.New("Zero value"))
+    } 
   }
 }
 
@@ -32,10 +38,14 @@ func TestGetBook(t *testing.T) {
 
 func TestGetTicker(t *testing.T) {
   client := NewTestClient()
-  _, err := client.GetTicker("BTC-USD")
+  ticker, err := client.GetTicker("BTC-USD")
   if err != nil {
     t.Error(err)
   }
+
+  if StructHasZeroValues(ticker) {
+    t.Error(errors.New("Zero value"))
+  } 
 }
 
 func TestListTrades(t *testing.T) {
@@ -46,6 +56,12 @@ func TestListTrades(t *testing.T) {
   for cursor.HasMore {
     if err := cursor.NextPage(&trades); err != nil {
       t.Error(err)
+    } 
+    
+    for _, a := range trades {  
+      if StructHasZeroValues(a) {
+        t.Error(errors.New("Zero value"))
+      }
     } 
   }
 }
@@ -70,8 +86,11 @@ func TestGetHistoricRates(t *testing.T) {
 
 func TestGetStats(t *testing.T) {
   client := NewTestClient()
-  _, err := client.GetStats("BTC-USD")
+  stats, err := client.GetStats("BTC-USD")
   if err != nil {
     t.Error(err)
+  }
+  if StructHasZeroValues(stats) {
+    t.Error(errors.New("Zero value"))
   }
 }

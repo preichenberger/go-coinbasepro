@@ -78,7 +78,10 @@ func TestListOrders(t *testing.T) {
       t.Error(err)
     }
 
-    for _, _ = range orders {
+    for _, o := range orders {
+      if StructHasZeroValues(o) {
+        t.Error(errors.New("Zero value"))
+      } 
     }
   }
 
@@ -88,7 +91,10 @@ func TestListOrders(t *testing.T) {
       t.Error(err)
     }
 
-    for _, _ = range orders {
+    for _, o := range orders {
+      if StructHasZeroValues(o) {
+        t.Error(errors.New("Zero value"))
+      } 
     }
   }
 }

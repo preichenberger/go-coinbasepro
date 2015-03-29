@@ -2,6 +2,7 @@ package coinbase
 
 import (
   "os"
+  "reflect"
 )
 
 func NewTestClient() *Client {
@@ -17,4 +18,19 @@ func NewTestClient() *Client {
   }
 
   return NewClient(secret, key, passphrase)
+}
+
+func StructHasZeroValues(i interface{}) bool {
+  iv := reflect.ValueOf(i)
+
+  //values := make([]interface{}, v.NumField())
+
+  for i := 0; i < iv.NumField(); i++ {
+    field := iv.Field(i)
+    if reflect.Zero(field.Type()) == field {
+      return true
+    }
+  }   
+
+  return false
 }
