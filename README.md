@@ -1,4 +1,4 @@
-Go Coinbase Exchange
+Go Coinbase Exchange [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/preichenberger/go-coinbase-exchange) [![Build Status](https://travis-ci.org/preichenberger/go-coinbase-exchange.svg?branch=master)](https://travis-ci.org/preichenberger/go-coinbase-exchange)
 ========
 
 ## Summary
@@ -87,7 +87,7 @@ Listen for websocket messages
 ### Examples
 This library supports all public and private endpoints.
 
-For full details on functionality, see [GoDoc]() documentation.
+For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbase-exchange) documentation.
 
 Get Accounts:
 ```go
