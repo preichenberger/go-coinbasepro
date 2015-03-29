@@ -2,7 +2,6 @@ package coinbase
 
 import(
   "fmt"
-  "strconv"
 )
 
 type Cursor struct {
@@ -33,34 +32,14 @@ func (c *Cursor) NextPage(i interface{}) error {
 
   res, err := c.Client.Request(c.Method, url, c.Params, i)
   if err != nil {
+    c.HasMore = false
     return err
   }
 
-  println(res.Header.Get("CB-BEFORE"))
-  println(res.Header.Get("CB-AFTER"))
-
-  if res.Header.Get("CB-BEFORE") == "" { 
-    c.Pagination.Before = -1
-  } else {
-    before, err := strconv.Atoi(res.Header.Get("CB-BEFORE"))
-    if err != nil {
-      return err
-    } 
-    c.Pagination.Before = before
-  }
-
-  if res.Header.Get("CB-AFTER") == "" { 
-    c.Pagination.After = -1
-  } else {
-    after, err := strconv.Atoi(res.Header.Get("CB-AFTER"))
-    if err != nil {
-      return err
-    }
-    c.Pagination.After = after
-  }
+  c.Pagination.Before = res.Header.Get("CB-BEFORE")
+  c.Pagination.After = res.Header.Get("CB-AFTER")
 
   if c.Pagination.Done() {
-    println("FINISHED")
     c.HasMore = false
   }
   

@@ -36,7 +36,6 @@ type GetAccountLedgerParams struct {
 // Holds
 
 type Hold struct {
-  Id string `json:"id"`
   AccountId string `json:"account_id"`
   CreatedAt Time `json:"created_at,string"`
   UpdatedAt Time `json:"updated_at,string"`
@@ -50,7 +49,7 @@ type ListHoldsParams struct {
 }
 
 // Client Funcs
-func (c *Client) ListAccounts() ([]Account, error) {
+func (c *Client) GetAccounts() ([]Account, error) {
   var accounts []Account
   _, err := c.Request("GET", "/accounts", nil, &accounts)
  
@@ -65,7 +64,7 @@ func (c *Client) GetAccount(id string) (Account, error) {
   return account, err
 }
 
-func (c *Client) GetAccountLedger(id string, 
+func (c *Client) ListAccountLedger(id string, 
   p ...GetAccountLedgerParams) (*Cursor) {
   paginationParams := PaginationParams{}
   if len(p) > 0 {

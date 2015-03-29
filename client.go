@@ -8,6 +8,7 @@ import(
   "encoding/json"
   "fmt"
   "net/http"
+  "os"
   "strconv"
   "time"
 )
@@ -18,7 +19,6 @@ type Client struct {
   Key string
   Passphrase string
 }
-
 
 func NewClient(secret, key, passphrase string) *Client {
   client := Client{
@@ -52,6 +52,17 @@ func (c *Client) Request(method string, url string,
   }
 
   timestamp := strconv.FormatInt(time.Now().Unix(), 10)
+
+  // XXX: Sandbox time is off right now
+  if os.Getenv("TEST_COINBASE_OFFSET") != "" {
+    inc, err := strconv.Atoi(os.Getenv("TEST_COINBASE_OFFSET"))
+    if err != nil {
+      return res, err
+    }
+
+    timestamp = strconv.FormatInt(time.Now().Unix() + int64(inc), 10)
+  }
+
   req.Header.Add("Accept", "application/json")
   req.Header.Add("Content-Type", "application/json")
   req.Header.Add("User-Agent", "Baylatent Bot 2.0")
@@ -86,9 +97,11 @@ func (c *Client) Request(method string, url string,
     return res, error(coinbaseError)
   }
 
-  decoder := json.NewDecoder(res.Body)
-  if err = decoder.Decode(result); err != nil {
-    return res, err
+  if result != nil {
+    decoder := json.NewDecoder(res.Body)
+    if err = decoder.Decode(result); err != nil {
+      return res, err
+    }
   }
 
   return res, nil

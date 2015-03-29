@@ -4,9 +4,9 @@ import(
   "testing"
 )
 
-func TestListAccounts(t *testing.T) {
+func TestGetAccounts(t *testing.T) {
   client := NewTestClient()
-  _, err := client.ListAccounts()
+  _, err := client.GetAccounts()
   if err != nil {
     t.Error(err)
   }
@@ -14,7 +14,7 @@ func TestListAccounts(t *testing.T) {
 
 func TestGetAccount(t *testing.T) {
   client := NewTestClient()
-  accounts, err := client.ListAccounts()
+  accounts, err := client.GetAccounts()
   if err != nil {
     t.Error(err)
   } 
@@ -26,16 +26,16 @@ func TestGetAccount(t *testing.T) {
     }
   }
 }
-func TestGetAccountLedger(t *testing.T) {
+func TestListAccountLedger(t *testing.T) {
   var ledger []LedgerEntry
   client := NewTestClient()
-  accounts, err := client.ListAccounts()
+  accounts, err := client.GetAccounts()
   if err != nil {
     t.Error(err)
   }
 
   for _, a := range accounts {
-    cursor := client.GetAccountLedger(a.Id)
+    cursor := client.ListAccountLedger(a.Id)
     for cursor.HasMore {
       if err := cursor.NextPage(&ledger); err != nil {
         t.Error(err)
@@ -50,7 +50,7 @@ func TestGetAccountLedger(t *testing.T) {
 func TestListHolds(t *testing.T) {
   var holds []Hold
   client := NewTestClient()
-  accounts, err := client.ListAccounts()
+  accounts, err := client.GetAccounts()
   if err != nil {
     t.Error(err)
   }
