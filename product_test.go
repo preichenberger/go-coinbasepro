@@ -78,10 +78,6 @@ func TestGetHistoricRates(t *testing.T) {
   if err != nil {
     t.Error(err)
   }
-
-  if len(historicalRates) == 0 {
-    t.Error(errors.New("Incorrect size of historical rates"))
-  }
 }
 
 func TestGetStats(t *testing.T) {
