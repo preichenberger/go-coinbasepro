@@ -74,7 +74,7 @@ func TestGetHistoricRates(t *testing.T) {
     Granularity: 1000,
   }
 
-  historicalRates, err := client.GetHistoricRates("BTC-USD", params)
+  _, err := client.GetHistoricRates("BTC-USD", params)
   if err != nil {
     t.Error(err)
   }
