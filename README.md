@@ -85,7 +85,7 @@ Listen for websocket messages
 ```
 
 ### Examples
-This library supports all public and private endpoints.
+This library supports all public and private endpoints
 
 For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbase-exchange) documentation.
 
