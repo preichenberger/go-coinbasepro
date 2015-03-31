@@ -43,10 +43,10 @@ type HistoricRate struct {
 }
 
 type Stats struct {
-  Low float64 `json:"low,number"`
-  High float64 `json:"high,number"`
-  Open float64 `json:"open,number"`
-  Volume float64 `json:"volume,number"`
+  Low float64 `json:"low,string"`
+  High float64 `json:"high,string"`
+  Open float64 `json:"open,string"`
+  Volume float64 `json:"volume,string"`
 }
 
 type BookEntry struct {
