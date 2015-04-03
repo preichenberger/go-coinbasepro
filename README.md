@@ -70,6 +70,14 @@ Listen for websocket messages
     println(err.Error())
   }
 
+  subscribe := map[string]string{
+    "type": "subscribe",
+    "product_id": "BTC-USD",
+  }
+  if err := wsConn.WriteJSON(subscribe); err != nil {
+    println(err.Error())
+  }
+
   message:= exchange.Message{}
   for true {
     if err := wsConn.ReadJSON(&message); err != nil {
