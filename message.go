@@ -8,7 +8,7 @@ type Message struct {
   MakerOrderId string `json:"maker_order_id"`
   TakerOrderId string `json:"taker_order_id"`
   Time Time `json:"time,string"`
-  RemainingSize float64 `json:"size,string"`
+  RemainingSize float64 `json:"remaining_size,string"`
   NewSize float64 `json:"new_size,string"`
   OldSize float64 `json:"old_size,string"`
   Size float64 `json:"size,string"`
