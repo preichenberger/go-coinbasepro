@@ -12,16 +12,16 @@ type PaginationParams struct {
   Extra map[string]string
 }
 
-func (p *PaginationParams) Encode(direction string) string {
+func (p *PaginationParams) Encode() string {
   values := url.Values{}
 
   if p.Limit > 0 {
     values.Add("limit", strconv.Itoa(p.Limit))
   }
-  if p.Before != "" && direction == "prev" {
+  if p.Before != "" {
     values.Add("before", p.Before)
   }
-  if p.After != "" && direction == "next"{
+  if p.After != "" {
     values.Add("after", p.After)
   }
 

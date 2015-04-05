@@ -24,10 +24,31 @@ func NewCursor(client *Client, method, url string,
   }
 }
 
+func (c *Cursor) PrevPage(i interface{}) error {
+  url := c.URL
+  if c.Pagination.Encode() != "" {
+    url = fmt.Sprintf("%s?%s", c.URL, c.Pagination.Encode())  
+  }
+
+  res, err := c.Client.Request(c.Method, url, c.Params, i)
+  if err != nil {
+    c.HasMore = false
+    return err
+  }
+
+  c.Pagination.Before = res.Header.Get("CB-AFTER")
+  c.Pagination.After = res.Header.Get("CB-BEFORE")
+  if c.Pagination.Done() {
+    c.HasMore = false
+  }
+  
+  return nil
+}
+
 func (c *Cursor) NextPage(i interface{}) error {
   url := c.URL
-  if c.Pagination.Encode("next") != "" {
-    url = fmt.Sprintf("%s?%s", c.URL, c.Pagination.Encode("next"))  
+  if c.Pagination.Encode() != "" {
+    url = fmt.Sprintf("%s?%s", c.URL, c.Pagination.Encode())  
   }
 
   res, err := c.Client.Request(c.Method, url, c.Params, i)
