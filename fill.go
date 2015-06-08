@@ -14,6 +14,7 @@ type Fill struct {
   Fee float64 `json:"fee,string"`
   Settled bool `json:"settled"`
   Side string `json:"side"`
+  Liquidity string `json:"liquidity"`
 }
 
 type ListFillsParams struct {
