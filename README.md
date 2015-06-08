@@ -111,6 +111,8 @@ Get Accounts:
 
 List Account Ledger:
 ```go
+  var ledger []exchange.LedgerEntry
+
   accounts, err := client.GetAccounts()
   if err != nil {
     println(err.Error())
