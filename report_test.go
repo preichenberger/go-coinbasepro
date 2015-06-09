@@ -1,6 +1,7 @@
 package coinbase
 
 import(
+  "errors"
   "testing"
   "time"
 )
@@ -18,5 +19,12 @@ func TestCreateReportAndStatus(t *testing.T) {
     t.Error(err)
   }
 
-  println(report.Status)
+
+  currentReport, err := client.GetReportStatus(report.Id)
+  if err != nil {
+    t.Error(err)
+  }
+  if StructHasZeroValues(currentReport) {
+    t.Error(errors.New("Zero value"))
+  } 
 }

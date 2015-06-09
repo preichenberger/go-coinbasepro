@@ -17,11 +17,12 @@ type CreateReportParams struct {
 
 
 type Report struct {
+  Id string `json:"id"`
   Type string `json:"type"`
   Status string `json:"status"`
-  CreatedAt time.Time `json:"created_at"`
-  CompletedAt time.Time `json:"created_at"`
-  ExpiresAt time.Time `json:"expires_at"`
+  CreatedAt Time `json:"created_at,string"`
+  CompletedAt Time `json:"completed_at,string,"`
+  ExpiresAt Time `json:"expires_at,string"`
   FileURL string `json:"file_url"`
   Params ReportParams `json:"params"`
   StartDate time.Time
@@ -37,7 +38,7 @@ func (c *Client) CreateReport(newReport *Report) (Report, error) {
   return savedReport, err
 }
 
-func (c *Client) GetReportStatus(id int) (Report, error) {
+func (c *Client) GetReportStatus(id string) (Report, error) {
   report := Report{}
 
   url := fmt.Sprintf("/reports/%s", id)
