@@ -12,7 +12,7 @@ go get github.com/preichenberger/go-coinbase-exchange
 ```
 
 ## Documentation
-
+For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbase-exchange) documentation.
 
 ### Setup
 How to create a client:
@@ -33,7 +33,7 @@ secret = "exposedsecret"
 key = "exposedkey"
 passphrase = "exposedpassphrase"
 
-client := NewClient(secret, key, passphrase)
+client := exchange.NewClient(secret, key, passphrase)
 ```
 
 ### Cursor
@@ -94,8 +94,6 @@ Listen for websocket messages
 
 ### Examples
 This library supports all public and private endpoints
-
-For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbase-exchange) documentation.
 
 Get Accounts:
 ```go

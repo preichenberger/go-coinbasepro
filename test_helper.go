@@ -1,6 +1,8 @@
 package coinbase
 
 import (
+  "errors"
+  "fmt"
   "os"
   "reflect"
 )
@@ -33,4 +35,20 @@ func StructHasZeroValues(i interface{}) bool {
   }   
 
   return false
+}
+
+func CompareProperties(a, b interface{}, properties []string) (bool, error) {
+  aValueOf := reflect.ValueOf(a)
+  bValueOf := reflect.ValueOf(b)
+
+  for _, property := range properties {
+    aValue := reflect.Indirect(aValueOf).FieldByName(property).Interface()
+    bValue := reflect.Indirect(bValueOf).FieldByName(property).Interface()
+
+    if aValue != bValue {
+      return false, errors.New(fmt.Sprintf("%s not equal", property))
+    }
+  }
+
+  return true, nil
 }

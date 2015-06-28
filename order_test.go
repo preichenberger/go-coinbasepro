@@ -5,7 +5,7 @@ import(
   "testing"
 )
 
-func TestCreateOrders(t *testing.T) {
+func TestCreateLimitOrders(t *testing.T) {
   client := NewTestClient()
 
   order := Order{
@@ -24,6 +24,39 @@ func TestCreateOrders(t *testing.T) {
     t.Error(errors.New("No create id found"))
   }
 
+  props := []string{"Price", "Size", "Side", "ProductId"}
+  _, err = CompareProperties(order, savedOrder, props)
+  if err != nil {
+    t.Error(err)
+  }
+}
+
+func TestCreateMarketOrders(t *testing.T) {
+  // # TODO: 
+  return
+  client := NewTestClient()
+
+  order := Order{
+    Funds: 10.00,
+    Size: 1.00,   
+    Side: "buy",   
+    ProductId: "BTC-USD",   
+  }
+
+  savedOrder, err := client.CreateOrder(&order)
+  if err != nil {
+    t.Error(err)
+  }
+
+  if savedOrder.Id == "" {
+    t.Error(errors.New("No create id found"))
+  }
+
+  props := []string{"Price", "Size", "Side", "ProductId"}
+  _, err = CompareProperties(order, savedOrder, props)
+  if err != nil {
+    t.Error(err)
+  }
 }
 
 func TestCancelOrder(t *testing.T) {
