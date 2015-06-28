@@ -15,4 +15,8 @@ type Message struct {
   Price float64 `json:"price,string"`
   Side string `json:"side"`
   Reason string `json:"reason"`
+  OrderType string `json:"order_type"`
+  Funds float64 `json:"funds,string"`
+  NewFunds float64 `json:"new_funds,string"`
+  OldFunds float64 `json:"old_funds,string"`
 }
