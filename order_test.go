@@ -32,14 +32,13 @@ func TestCreateLimitOrders(t *testing.T) {
 }
 
 func TestCreateMarketOrders(t *testing.T) {
-  // # TODO: 
-  return
   client := NewTestClient()
 
   order := Order{
     Funds: 10.00,
-    Size: 1.00,   
-    Side: "buy",   
+    Size: 2.00,   
+    Side: "buy",
+    Type: "market",
     ProductId: "BTC-USD",   
   }
 

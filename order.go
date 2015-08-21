@@ -15,6 +15,7 @@ type Order struct {
   Side string `json:"side"`
   ProductId string `json:"product_id"`
   DoneReason string `json:"done_reason"`
+  Type string `json:"type"`
   CreatedAt Time `json:"created_at,string"`
 }
 
@@ -25,6 +26,10 @@ type ListOrdersParams struct {
 
 func (c *Client) CreateOrder(newOrder *Order) (Order, error) {
   var savedOrder Order
+
+  if len(newOrder.Type) == 0 {
+    newOrder.Type = "limit"
+  }
 
   url := fmt.Sprintf("/orders")
   _, err := c.Request("POST", url, newOrder, &savedOrder)
