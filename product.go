@@ -13,9 +13,9 @@ type Product struct {
   Id string `json:"id"`
   BaseCurency string `json:"base_currency"`
   QuoteCurrency string `json:"quote_currency"`
-  BaseMinSize float64 `json:"base_min_size,number"`
-  BaseMaxSize float64 `json:"base_max_size,number"`
-  QuoteIncrement float64 `json:"quote_increment,number"`
+  BaseMinSize float64 `json:"base_min_size,string"`
+  BaseMaxSize float64 `json:"base_max_size,string"`
+  QuoteIncrement float64 `json:"quote_increment,string"`
 }
 
 type Ticker struct {
