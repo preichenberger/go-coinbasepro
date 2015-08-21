@@ -2,7 +2,7 @@ package coinbase
 
 import(
   "fmt"
-  "encoding/json"
+  "strings"
   "time"
 )
 
@@ -24,16 +24,10 @@ type Time time.Time
 func (t *Time) UnmarshalJSON(data []byte) error {
   var err error
   var parsedTime time.Time
-  var stringTime string
 
   if string(data) == "null" {
     *t = Time(time.Time{})
     return nil
-  }
-
-  if err := json.Unmarshal(data, &stringTime);err != nil {
-    *t = Time(time.Time{})
-    return err
   }
 
   layouts := []string{
@@ -44,7 +38,8 @@ func (t *Time) UnmarshalJSON(data []byte) error {
     "2006-01-02T15:04:05Z",
     "2006-01-02 15:04:05.999999+00" }
   for _, layout := range layouts {
-    parsedTime, err = time.Parse(layout, stringTime)
+    parsedTime, err = time.Parse(layout,
+      strings.Replace(string(data), "\"", "", -1))
     if err != nil {
       continue
     }
