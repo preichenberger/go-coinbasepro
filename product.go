@@ -217,8 +217,8 @@ func (c *Client) GetHistoricRates(product string,
 	if !params.Start.IsZero() && !params.End.IsZero() && params.Granularity != 0 {
 		values := url.Values{}
 		layout := "2006-01-02T15:04:05Z"
-		values.Add("start", params.Start.Format(layout))
-		values.Add("end", params.End.Format(layout))
+		values.Add("start", params.Start.UTC().Format(layout))
+		values.Add("end", params.End.UTC().Format(layout))
 		values.Add("granularity", strconv.Itoa(params.Granularity))
 
 		requestURL = fmt.Sprintf("%s?%s", requestURL, values.Encode())
