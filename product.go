@@ -23,6 +23,9 @@ type Ticker struct {
 	Price   float64 `json:"price,string"`
 	Size    float64 `json:"size,string"`
 	Time    Time    `json:"time,string"`
+	Bid     float64 `json:"bid,string"`
+	Ask     float64 `json:"ask,string"`
+	Volume  float64 `json:"volume,string"`
 }
 
 type Trade struct {
