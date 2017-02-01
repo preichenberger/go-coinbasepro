@@ -65,7 +65,7 @@ Listen for websocket messages
   )
 
   var wsDialer ws.Dialer
-  wsConn, _, err := wsDialer.Dial("wss://ws-feed.exchange.coinbase.com", nil)
+  wsConn, _, err := wsDialer.Dial("wss://ws-feed.gdax.com", nil)
   if err != nil {
     println(err.Error())
   }
