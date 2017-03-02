@@ -20,4 +20,5 @@ type Message struct {
 	Funds         float64 `json:"funds,string"`
 	NewFunds      float64 `json:"new_funds,string"`
 	OldFunds      float64 `json:"old_funds,string"`
+	Message       string  `json:"message"`
 }
