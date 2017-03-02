@@ -1,8 +1,8 @@
 package coinbase
 
 type Message struct {
-	ProductId     string  `json:"product_id"`
 	Type          string  `json:"type"`
+	ProductId     string  `json:"product_id"`
 	TradeId       int     `json:"trade_id,number"`
 	OrderId       string  `json:"order_id"`
 	Sequence      int     `json:"sequence,number"`
