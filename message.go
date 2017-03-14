@@ -2,6 +2,7 @@ package coinbase
 
 type Message struct {
 	Type          string  `json:"type"`
+	ProductId     string  `json:"product_id"`
 	TradeId       int     `json:"trade_id,number"`
 	OrderId       string  `json:"order_id"`
 	Sequence      int     `json:"sequence,number"`
@@ -19,4 +20,5 @@ type Message struct {
 	Funds         float64 `json:"funds,string"`
 	NewFunds      float64 `json:"new_funds,string"`
 	OldFunds      float64 `json:"old_funds,string"`
+	Message       string  `json:"message"`
 }
