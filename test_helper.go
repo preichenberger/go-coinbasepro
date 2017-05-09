@@ -13,7 +13,7 @@ func NewTestClient() *Client {
 	passphrase := os.Getenv("TEST_COINBASE_PASSPHRASE")
 
 	return &Client{
-		BaseURL:    "https://api-public.sandbox.exchange.coinbase.com",
+		BaseURL:    "https://api-public.sandbox.gdax.com",
 		Secret:     secret,
 		Key:        key,
 		Passphrase: passphrase,
