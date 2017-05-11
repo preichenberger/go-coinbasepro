@@ -15,6 +15,7 @@ type Order struct {
 	Price       float64 `json:"price,string,omitempty"`
 	TimeInForce string  `json:"time_in_force,omitempty"`
 	PostOnly    bool    `json:"post_only,omitempty"`
+	CancelAfter string  `json:"cancel_after,omitempty"`
 	// Market Order
 	Funds float64 `json:"funds,string,omitempty"`
 	// Response Fields
