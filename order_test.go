@@ -69,7 +69,9 @@ func TestCancelOrder(t *testing.T) {
 
 		for _, o := range orders {
 			if err := client.CancelOrder(o.Id); err != nil {
-				t.Error(err)
+				if err.Error() != "Order already done" {
+					t.Error(err)
+				}
 			}
 		}
 	}
