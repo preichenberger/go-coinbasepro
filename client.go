@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"crypto/hmac"
 	"crypto/sha256"
+	"crypto/tls"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -79,7 +80,13 @@ func (c *Client) Request(method string, url string,
 	}
 	req.Header.Add("CB-ACCESS-SIGN", sig)
 
-	client := http.Client{}
+	httpClientTransport := &http.Transport{
+		TLSClientConfig: &tls.Config{
+			InsecureSkipVerify: true,
+		},
+	}
+
+	client := http.Client{Transport: httpClientTransport}
 	res, err = client.Do(req)
 	if err != nil {
 		return res, err
