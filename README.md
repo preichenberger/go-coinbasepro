@@ -3,7 +3,7 @@ Go Coinbase Exchange [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.
 
 ## Summary
 
-Go client for [Coinbase Exchange](https://exchange.coinbase.com)
+Go client for [GDAX](https://www.gdax.com)
 
 ## Installation
 
