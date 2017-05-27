@@ -16,6 +16,7 @@ type Product struct {
 	BaseMinSize    float64 `json:"base_min_size,string"`
 	BaseMaxSize    float64 `json:"base_max_size,string"`
 	QuoteIncrement float64 `json:"quote_increment,string"`
+	DisplayName    string  `json:"display_name"`
 }
 
 type Ticker struct {
