@@ -11,7 +11,7 @@ import (
 
 type Product struct {
 	Id             string  `json:"id"`
-	BaseCurency    string  `json:"base_currency"`
+	BaseCurrency   string  `json:"base_currency"`
 	QuoteCurrency  string  `json:"quote_currency"`
 	BaseMinSize    float64 `json:"base_min_size,string"`
 	BaseMaxSize    float64 `json:"base_max_size,string"`
@@ -27,7 +27,6 @@ type Ticker struct {
 	Ask     float64 `json:"ask,string"`
 	Volume  float64 `json:"volume,string"`
 }
-
 
 type Trade struct {
 	TradeId int     `json:"trade_id,number"`
