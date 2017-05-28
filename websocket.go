@@ -19,6 +19,11 @@ type WsSubscribeMessage struct {
 	ProductIds []string `json:"product_ids"`
 }
 
+type WsHeartbeatMessage struct {
+	Type string `json:"type"`
+	On   bool   `json:"on"`
+}
+
 // Creates a WebSocket Client to receive GDAX feed
 func NewWsClient(c MessageChannel) *WsClient {
 	client := WsClient{
@@ -52,6 +57,13 @@ func (client *WsClient) Connect() error {
 
 func (client *WsClient) Subscribe(currency_pairs []string) error {
 	msg := WsSubscribeMessage{Type: "subscribe", ProductIds: currency_pairs}
+
+	return client.connection.WriteJSON(msg)
+}
+
+// Turns heartbeat on/off on the Connection
+func (client *WsClient) Heartbeat(on bool) error {
+	msg := WsHeartbeatMessage{Type: "heartbeat", On: on}
 
 	return client.connection.WriteJSON(msg)
 }
