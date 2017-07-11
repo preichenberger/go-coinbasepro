@@ -55,6 +55,11 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// MarshalJSON marshal time back to time.Time for json encoding
+func (t Time) MarshalJSON() ([]byte, error) {
+	return t.Time().MarshalJSON()
+}
+
 func (t *Time) Time() time.Time {
 	return time.Time(*t)
 }
