@@ -6,7 +6,7 @@ import (
 
 type Order struct {
 	Type      string  `json:"type"`
-	Size      float64 `json:"size,string"`
+	Size      float64 `json:"size,string,omitempty"`
 	Side      string  `json:"side"`
 	ProductId string  `json:"product_id"`
 	ClientOID string  `json:"client_oid,omitempty"`
