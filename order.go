@@ -6,7 +6,7 @@ import (
 
 type Order struct {
 	Type      string  `json:"type"`
-	Size      float64 `json:"size,string"`
+	Size      float64 `json:"size,string,omitempty"`
 	Side      string  `json:"side"`
 	ProductId string  `json:"product_id"`
 	ClientOID string  `json:"client_oid,omitempty"`
@@ -19,11 +19,14 @@ type Order struct {
 	// Market Order
 	Funds float64 `json:"funds,string,omitempty"`
 	// Response Fields
-	Id         string `json:"id"`
-	Status     string `json:"status,omitempty"`
-	Settled    bool   `json:"settled,omitempty"`
-	DoneReason string `json:"done_reason,omitempty"`
-	CreatedAt  Time   `json:"created_at,string,omitempty"`
+	Id            string  `json:"id"`
+	Status        string  `json:"status,omitempty"`
+	Settled       bool    `json:"settled,omitempty"`
+	DoneReason    string  `json:"done_reason,omitempty"`
+	CreatedAt     Time    `json:"created_at,string,omitempty"`
+	FillFees      float64 `json:"fill_fees,string,omitempty"`
+	FilledSize    float64 `json:"filled_size,string,omitempty"`
+	ExecutedValue float64 `json:"executed_value,string,omitempty"`
 }
 
 type ListOrdersParams struct {
