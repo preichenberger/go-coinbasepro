@@ -92,6 +92,19 @@ Listen for websocket messages
 
 ```
 
+### Time
+Results return coinbase time type which handles different types of time parsing that GDAD returns. This wraps the native go time type
+
+```go
+  import(
+    "time"
+    exchange "github.com/preichenberger/go-coinbase-exchange"
+  )
+
+  coinbaseTime := exchange.Time{}
+  println(time.Time(coinbaseTime).Day())
+```
+
 ### Examples
 This library supports all public and private endpoints
 
