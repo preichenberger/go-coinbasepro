@@ -36,7 +36,7 @@ passphrase = "exposedpassphrase"
 client := exchange.NewClient(secret, key, passphrase)
 ```
 
-# HTTP Settings
+### HTTP Settings
 ```go
 import (
   "/net/http"
