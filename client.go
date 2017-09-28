@@ -31,7 +31,7 @@ func NewClient(secret, key, passphrase string) *Client {
 	return &client
 }
 
-func (c *Client) Request(method string, url string,
+func (c *Client) Request(method string, url string, client *http.Client,
 	params, result interface{}) (res *http.Response, err error) {
 	var data []byte
 	body := bytes.NewReader(make([]byte, 0))
@@ -79,7 +79,11 @@ func (c *Client) Request(method string, url string,
 	}
 	req.Header.Add("CB-ACCESS-SIGN", sig)
 
-	client := http.Client{}
+	if client == nil {
+		client = &http.Client{
+			Timeout: 15 * time.Second,
+		}
+	}
 	res, err = client.Do(req)
 	if err != nil {
 		return res, err
