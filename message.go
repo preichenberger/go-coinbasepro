@@ -5,7 +5,7 @@ type Message struct {
 	ProductId     string  `json:"product_id"`
 	TradeId       int     `json:"trade_id,number"`
 	OrderId       string  `json:"order_id"`
-	Sequence      int     `json:"sequence,number"`
+	Sequence      int64   `json:"sequence,number"`
 	MakerOrderId  string  `json:"maker_order_id"`
 	TakerOrderId  string  `json:"taker_order_id"`
 	Time          Time    `json:"time,string"`
