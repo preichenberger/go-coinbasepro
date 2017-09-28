@@ -36,6 +36,18 @@ passphrase = "exposedpassphrase"
 client := exchange.NewClient(secret, key, passphrase)
 ```
 
+# HTTP Settings
+```go
+import (
+  "/net/http"
+  "time"
+)
+
+client.HttpClient = &http.Client {
+  Timeout: 15 * time.Second
+}
+```
+
 ### Cursor
 This library uses a cursor pattern so you don't have to keep track of pagination.
 

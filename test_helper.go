@@ -3,8 +3,10 @@ package coinbase
 import (
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"reflect"
+	"time"
 )
 
 func NewTestClient() *Client {
@@ -17,6 +19,9 @@ func NewTestClient() *Client {
 		Secret:     secret,
 		Key:        key,
 		Passphrase: passphrase,
+		HttpClient: &http.Client{
+			Timeout: 15 * time.Second,
+		},
 	}
 
 	return NewClient(secret, key, passphrase)

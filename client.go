@@ -18,6 +18,7 @@ type Client struct {
 	Secret     string
 	Key        string
 	Passphrase string
+	HttpClient *http.Client
 }
 
 func NewClient(secret, key, passphrase string) *Client {
@@ -26,6 +27,9 @@ func NewClient(secret, key, passphrase string) *Client {
 		Secret:     secret,
 		Key:        key,
 		Passphrase: passphrase,
+		HttpClient: &http.Client{
+			Timeout: 15 * time.Second,
+		},
 	}
 
 	return &client
@@ -79,8 +83,7 @@ func (c *Client) Request(method string, url string,
 	}
 	req.Header.Add("CB-ACCESS-SIGN", sig)
 
-	client := http.Client{}
-	res, err = client.Do(req)
+	res, err = c.HttpClient.Do(req)
 	if err != nil {
 		return res, err
 	}
