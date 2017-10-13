@@ -24,9 +24,9 @@ import (
   exchange "github.com/preichenberger/go-coinbase-exchange"
 )
 
-secret := os.Getenv("COINBASE_SECRET") 
-key := os.Getenv("COINBASE_KEY") 
-passphrase := os.Getenv("COINBASE_PASSPHRASE") 
+secret := os.Getenv("COINBASE_SECRET")
+key := os.Getenv("COINBASE_KEY")
+passphrase := os.Getenv("COINBASE_PASSPHRASE")
 
 // or unsafe hardcode way
 secret = "exposedsecret"
@@ -62,7 +62,7 @@ for cursor.HasMore {
   }
 
   for _, o := range orders {
-    println(o.Id) 
+    println(o.Id)
   }
 }
 
@@ -105,7 +105,7 @@ Listen for websocket messages
 ```
 
 ### Time
-Results return coinbase time type which handles different types of time parsing that GDAD returns. This wraps the native go time type
+Results return coinbase time type which handles different types of time parsing that GDAX returns. This wraps the native go time type
 
 ```go
   import(
@@ -157,10 +157,10 @@ List Account Ledger:
 Create an Order:
 ```go
   order := exchange.Order{
-    Price: 1.00,   
-    Size: 1.00,   
-    Side: "buy",   
-    ProductId: "BTC-USD",   
+    Price: 1.00,
+    Size: 1.00,
+    Side: "buy",
+    ProductId: "BTC-USD",
   }
 
   savedOrder, err := client.CreateOrder(&order)
@@ -175,7 +175,7 @@ Transfer funds:
 ```go
   transfer := exchange.Transfer {
     Type: "deposit",
-    Amount: 1.00,   
+    Amount: 1.00,
   }
 
   savedTransfer, err := client.CreateTransfer(&transfer)
@@ -194,7 +194,7 @@ Get Trade history:
       for _, t := range trades {
         println(trade.CoinbaseId)
       }
-    } 
+    }
   }
 ```
 
