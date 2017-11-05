@@ -1,4 +1,4 @@
-package coinbase
+package gdax
 
 type Error struct {
 	Message string `json:"message"`

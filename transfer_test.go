@@ -1,4 +1,4 @@
-package coinbase
+package gdax
 
 import (
 	"testing"
