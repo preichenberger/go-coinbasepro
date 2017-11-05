@@ -1,4 +1,4 @@
-Go Coinbase Exchange [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/preichenberger/go-coinbase-exchange) [![Build Status](https://travis-ci.org/preichenberger/go-coinbase-exchange.svg?branch=master)](https://travis-ci.org/preichenberger/go-coinbase-exchange)
+Go GDAX [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/preichenberger/go-gdax) [![Build Status](https://travis-ci.org/preichenberger/go-gdax.svg?branch=master)](https://travis-ci.org/preichenberger/go-gdax)
 ========
 
 ## Summary
@@ -8,11 +8,11 @@ Go client for [GDAX](https://www.gdax.com)
 ## Installation
 
 ```sh
-go get github.com/preichenberger/go-coinbase-exchange
+go get github.com/preichenberger/go-gdax
 ```
 
 ## Documentation
-For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbase-exchange) documentation.
+For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-gdax) documentation.
 
 ### Setup
 How to create a client:
@@ -21,7 +21,7 @@ How to create a client:
 
 import (
   "os"
-  exchange "github.com/preichenberger/go-coinbase-exchange"
+  gdax "github.com/preichenberger/go-gdax"
 )
 
 secret := os.Getenv("COINBASE_SECRET")
@@ -110,7 +110,7 @@ Results return coinbase time type which handles different types of time parsing 
 ```go
   import(
     "time"
-    exchange "github.com/preichenberger/go-coinbase-exchange"
+    exchange "github.com/preichenberger/go-gdax"
   )
 
   coinbaseTime := exchange.Time{}
