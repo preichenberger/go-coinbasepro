@@ -21,7 +21,7 @@ How to create a client:
 
 import (
   "os"
-  gdax "github.com/preichenberger/go-gdax"
+  exchange "github.com/preichenberger/go-gdax"
 )
 
 secret := os.Getenv("COINBASE_SECRET")
