@@ -23,8 +23,6 @@ func NewTestClient() *Client {
 			Timeout: 15 * time.Second,
 		},
 	}
-
-	return NewClient(secret, key, passphrase)
 }
 
 func StructHasZeroValues(i interface{}) bool {
