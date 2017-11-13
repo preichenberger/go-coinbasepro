@@ -39,7 +39,7 @@ client := exchange.NewClient(secret, key, passphrase)
 ### HTTP Settings
 ```go
 import (
-  "/net/http"
+  "net/http"
   "time"
 )
 
