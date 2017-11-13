@@ -44,7 +44,7 @@ import (
 )
 
 client.HttpClient = &http.Client {
-  Timeout: 15 * time.Second
+  Timeout: 15 * time.Second,
 }
 ```
 
