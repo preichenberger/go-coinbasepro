@@ -70,18 +70,11 @@ func (c *Client) Request(method string, url string,
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
 	req.Header.Add("User-Agent", "Baylatent Bot 2.0")
-	req.Header.Add("CB-ACCESS-KEY", c.Key)
-	req.Header.Add("CB-ACCESS-PASSPHRASE", c.Passphrase)
-	req.Header.Add("CB-ACCESS-TIMESTAMP", timestamp)
 
-	message := fmt.Sprintf("%s%s%s%s", timestamp, method, url,
-		string(data))
-
-	sig, err := c.generateSig(message, c.Secret)
-	if err != nil {
-		return res, err
+	h, err := c.Headers(method, url, timestamp, string(data))
+	for k, v := range h {
+		req.Header.Add(k, v)
 	}
-	req.Header.Add("CB-ACCESS-SIGN", sig)
 
 	res, err = c.HttpClient.Do(req)
 	if err != nil {
@@ -108,6 +101,29 @@ func (c *Client) Request(method string, url string,
 	}
 
 	return res, nil
+}
+
+// Headers generates a map that can be used as headers to authenticate a request
+func (c *Client) Headers(method, url, timestamp, data string) (map[string]string, error) {
+	h := make(map[string]string)
+	h["CB-ACCESS-KEY"] = c.Key
+	h["CB-ACCESS-PASSPHRASE"] = c.Passphrase
+	h["CB-ACCESS-TIMESTAMP"] = timestamp
+
+	message := fmt.Sprintf(
+		"%s%s%s%s",
+		timestamp,
+		method,
+		url,
+		data,
+	)
+
+	sig, err := c.generateSig(message, c.Secret)
+	if err != nil {
+		return nil, err
+	}
+	h["CB-ACCESS-SIGN"] = sig
+	return h, nil
 }
 
 func (c *Client) generateSig(message, secret string) (string, error) {
