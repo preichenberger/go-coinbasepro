@@ -29,7 +29,18 @@ func (c *Cursor) NextPage(i interface{}) error {
 	if c.Pagination.Encode("next") != "" {
 		url = fmt.Sprintf("%s?%s", c.URL, c.Pagination.Encode("next"))
 	}
+	return c.getPage(url, i)
+}
 
+func (c* Cursor) LastPage(i interface{}) error {
+	url := c.URL
+	if c.Pagination.Encode("before") != "" {
+		url = fmt.Sprintf("%s?%s", c.URL, c.Pagination.Encode("next"))
+	}
+	return c.getPage(url, i)
+}
+
+func (c* Cursor) getPage(url string, i interface{}) error {
 	res, err := c.Client.Request(c.Method, url, c.Params, i)
 	if err != nil {
 		c.HasMore = false
