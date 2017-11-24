@@ -33,7 +33,7 @@ secret = "exposedsecret"
 key = "exposedkey"
 passphrase = "exposedpassphrase"
 
-client := exchange.NewClient(secret, key, passphrase)
+client := gdax.NewClient(secret, key, passphrase)
 ```
 
 ### HTTP Settings
@@ -52,7 +52,7 @@ client.HttpClient = &http.Client {
 This library uses a cursor pattern so you don't have to keep track of pagination.
 
 ```go
-var orders []exchange.Order
+var orders []gdax.Order
 cursor = client.ListOrders()
 
 for cursor.HasMore {
@@ -90,7 +90,7 @@ Listen for websocket messages
     println(err.Error())
   }
 
-  message:= exchange.Message{}
+  message:= gdax.Message{}
   for true {
     if err := wsConn.ReadJSON(&message); err != nil {
       println(err.Error())
@@ -110,10 +110,10 @@ Results return coinbase time type which handles different types of time parsing 
 ```go
   import(
     "time"
-    exchange "github.com/preichenberger/go-gdax"
+    gdax "github.com/preichenberger/go-gdax"
   )
 
-  coinbaseTime := exchange.Time{}
+  coinbaseTime := gdax.Time{}
   println(time.Time(coinbaseTime).Day())
 ```
 
@@ -134,7 +134,7 @@ Get Accounts:
 
 List Account Ledger:
 ```go
-  var ledger []exchange.LedgerEntry
+  var ledger []gdax.LedgerEntry
 
   accounts, err := client.GetAccounts()
   if err != nil {
@@ -156,7 +156,7 @@ List Account Ledger:
 
 Create an Order:
 ```go
-  order := exchange.Order{
+  order := gdax.Order{
     Price: 1.00,
     Size: 1.00,
     Side: "buy",
@@ -173,7 +173,7 @@ Create an Order:
 
 Transfer funds:
 ```go
-  transfer := exchange.Transfer {
+  transfer := gdax.Transfer {
     Type: "deposit",
     Amount: 1.00,
   }
@@ -186,7 +186,7 @@ Transfer funds:
 
 Get Trade history:
 ```go
-  var trades []exchange.Trade
+  var trades []gdax.Trade
   cursor := client.ListTrades("BTC-USD")
 
   for cursor.HasMore {
