@@ -32,8 +32,12 @@ func (p *PaginationParams) Encode(direction string) string {
 	return values.Encode()
 }
 
-func (p *PaginationParams) Done() bool {
-	if p.Before == "" && p.After == "" {
+func (p *PaginationParams) Done(direction string) bool {
+	if p.Before == "" && direction == "prev" {
+		return true
+	}
+
+	if p.After == "" && direction == "next" {
 		return true
 	}
 
