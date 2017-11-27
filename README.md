@@ -39,12 +39,12 @@ client := gdax.NewClient(secret, key, passphrase)
 ### HTTP Settings
 ```go
 import (
-  "/net/http"
+  "net/http"
   "time"
 )
 
 client.HttpClient = &http.Client {
-  Timeout: 15 * time.Second
+  Timeout: 15 * time.Second,
 }
 ```
 

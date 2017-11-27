@@ -24,4 +24,7 @@ type Message struct {
 	Bids          [][]string `json:"bids,omitempty"`
 	Asks          [][]string `json:"asks,omitempty"`
 	Changes       [][]string `json:"changes,omitempty"`
+	LastSize      float64    `json:"last_size,string"`
+	BestBid       float64    `json:"best_bid,string"`
+	BestAsk       float64    `json:"best_ask,string"`
 }
