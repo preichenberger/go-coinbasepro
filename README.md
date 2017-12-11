@@ -82,9 +82,16 @@ Listen for websocket messages
     println(err.Error())
   }
 
-  subscribe := map[string]string{
-    "type": "subscribe",
-    "product_id": "BTC-USD",
+  subscribe := gdax.Message{
+    Type:      "subscribe",
+    Channels: []gdax.MessageChannel{
+      gdax.MessageChannel{
+        Name: "level2",
+        ProductIds: []string{
+          "BTC-USD",
+        },
+      },
+    },
   }
   if err := wsConn.WriteJSON(subscribe); err != nil {
     println(err.Error())
