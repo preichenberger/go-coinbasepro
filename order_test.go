@@ -132,3 +132,19 @@ func TestListOrders(t *testing.T) {
 		}
 	}
 }
+
+func TestCancelAll(t *testing.T) {
+	client := NewTestClient()
+
+	if cursor := client.ListOrders(); !cursor.HasMore {
+		t.Error("There are no orders to cancel")
+	}
+
+	if _, err := client.CancelAll(); err != nil {
+		t.Error(err)
+	}
+
+	if cursor := client.ListOrders(); cursor.HasMore {
+		t.Error("Orders still exist after cancelling all")
+	}
+}

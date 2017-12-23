@@ -52,6 +52,12 @@ func (c *Client) CancelOrder(id string) error {
 	return err
 }
 
+func (c *Client) CancelAll() ([]string, error) {
+	var orderIDs []string
+	_, err := c.Request("DELETE", "/orders", nil, &orderIDs)
+	return orderIDs, err
+}
+
 func (c *Client) GetOrder(id string) (Order, error) {
 	var savedOrder Order
 
