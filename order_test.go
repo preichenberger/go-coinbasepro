@@ -119,7 +119,7 @@ func TestListOrders(t *testing.T) {
 		}
 	}
 
-	cursor = client.ListOrders(ListOrdersParams{Status: "open"})
+	cursor = client.ListOrders(ListOrdersParams{Status: "open", ProductId: "LTC-EUR"})
 	for cursor.HasMore {
 		if err := cursor.NextPage(&orders); err != nil {
 			t.Error(err)
