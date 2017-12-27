@@ -31,6 +31,7 @@ type Order struct {
 
 type ListOrdersParams struct {
 	Status     string
+	ProductId  string
 	Pagination PaginationParams
 }
 
@@ -66,6 +67,9 @@ func (c *Client) ListOrders(p ...ListOrdersParams) *Cursor {
 		paginationParams = p[0].Pagination
 		if p[0].Status != "" {
 			paginationParams.AddExtraParam("status", p[0].Status)
+		}
+		if p[0].ProductId != "" {
+			paginationParams.AddExtraParam("product_id", p[0].ProductId)
 		}
 	}
 
