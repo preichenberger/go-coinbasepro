@@ -29,6 +29,10 @@ type Order struct {
 	ExecutedValue float64 `json:"executed_value,string,omitempty"`
 }
 
+type CancelAllOrdersParams struct {
+	ProductID string `json:"product_id,string,omitempty"`
+}
+
 type ListOrdersParams struct {
 	Status     string
 	Pagination PaginationParams
@@ -52,8 +56,11 @@ func (c *Client) CancelOrder(id string) error {
 	return err
 }
 
-func (c *Client) CancelAll() ([]string, error) {
+func (c *Client) CancelAllOrders(p ...CancelAllOrdersParams) ([]string, error) {
 	var orderIDs []string
+	if len(p) == 0 {
+		p = nil
+	}
 	_, err := c.Request("DELETE", "/orders", nil, &orderIDs)
 	return orderIDs, err
 }

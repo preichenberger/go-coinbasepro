@@ -133,18 +133,37 @@ func TestListOrders(t *testing.T) {
 	}
 }
 
-func TestCancelAll(t *testing.T) {
+func TestCancelAllOrders(t *testing.T) {
 	client := NewTestClient()
 
-	if cursor := client.ListOrders(); !cursor.HasMore {
-		t.Error("There are no orders to cancel")
-	}
-
-	if _, err := client.CancelAll(); err != nil {
+	// Clear any orders that may have been left over from other tests
+	if _, err := client.CancelAllOrders(); err != nil {
 		t.Error(err)
 	}
 
-	if cursor := client.ListOrders(); cursor.HasMore {
-		t.Error("Orders still exist after cancelling all")
+	for _, pair := range []string{"BTC-USD", "ETH-USD", "LTC-USD"} {
+		order := Order{Price: 1.00, Size: 1.00, Side: "buy", ProductId: pair}
+
+		if _, err := client.CreateOrder(&order); err != nil {
+			t.Error(err)
+		}
+	}
+
+	orderIDs, err := client.CancelAllOrders(CancelAllOrdersParams{ProductID: "LTC-USD"})
+	if err != nil {
+		t.Error(err)
+	}
+
+	if len(orderIDs) != 1 {
+		t.Error("Did not cancel single order")
+	}
+
+	orderIDs, err = client.CancelAllOrders()
+	if err != nil {
+		t.Error(err)
+	}
+
+	if len(orderIDs) != 2 {
+		t.Error("Did not cancel remaining orders")
 	}
 }
