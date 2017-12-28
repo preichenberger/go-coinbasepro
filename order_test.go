@@ -132,3 +132,24 @@ func TestListOrders(t *testing.T) {
 		}
 	}
 }
+
+func TestCancelAllOrders(t *testing.T) {
+	client := NewTestClient()
+
+	for _, pair := range []string{"BTC-USD", "ETH-USD", "LTC-USD"} {
+		order := Order{Price: 1.00, Size: 10000.00, Side: "buy", ProductId: pair}
+
+		if _, err := client.CreateOrder(&order); err != nil {
+			t.Error(err)
+		}
+	}
+
+	orderIDs, err := client.CancelAllOrders(CancelAllOrdersParams{ProductId: "LTC-USD"})
+	if err != nil {
+		t.Error(err)
+	}
+
+	if len(orderIDs) != 1 {
+		t.Error("Did not cancel single order")
+	}
+}

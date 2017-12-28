@@ -29,6 +29,10 @@ type Order struct {
 	ExecutedValue float64 `json:"executed_value,string,omitempty"`
 }
 
+type CancelAllOrdersParams struct {
+	ProductId string
+}
+
 type ListOrdersParams struct {
 	Status     string
 	ProductId  string
@@ -51,6 +55,18 @@ func (c *Client) CancelOrder(id string) error {
 	url := fmt.Sprintf("/orders/%s", id)
 	_, err := c.Request("DELETE", url, nil, nil)
 	return err
+}
+
+func (c *Client) CancelAllOrders(p ...CancelAllOrdersParams) ([]string, error) {
+	var orderIDs []string
+	url := "/orders"
+
+	if len(p) > 0 && p[0].ProductId != "" {
+		url = fmt.Sprintf("%s?product_id=", p[0].ProductId)
+	}
+
+	_, err := c.Request("DELETE", url, nil, &orderIDs)
+	return orderIDs, err
 }
 
 func (c *Client) GetOrder(id string) (Order, error) {
