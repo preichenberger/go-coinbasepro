@@ -68,6 +68,41 @@ for cursor.HasMore {
 
 ```
 
+### Decimals
+To manage precision correctly, this library sends all price values as strings. It is recommended to use a decimal library
+like Spring's [Decimal](https://github.com/shopspring/decimal) if you are doing any manipulation of prices.
+
+Example:
+```go
+import (
+  "github.com/shopspring/decimal"
+)
+
+book, err := gdax.getBook("BTC-USD", 1)
+if err != nil {
+    println(err.Error())  
+}
+
+lastPrice, err := decimal.NewFromString(book.Bids[0].Price)
+if err != nil {
+    println(err.Error())  
+}
+
+order := gdax.Order{
+  Price: lastPrice.Add(decimal.NewFromFloat(1.00)).String(),
+  Size: "2.00",
+  Side: "buy",
+  ProductId: "BTC-USD",
+}
+
+savedOrder, err := client.CreateOrder(&order)
+if err != nil {
+  println(err.Error())
+}
+
+println(savedOrder.Id)
+```
+
 ### Websockets
 Listen for websocket messages
 
