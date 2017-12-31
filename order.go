@@ -5,28 +5,28 @@ import (
 )
 
 type Order struct {
-	Type      string  `json:"type"`
-	Size      float64 `json:"size,string,omitempty"`
-	Side      string  `json:"side"`
-	ProductId string  `json:"product_id"`
-	ClientOID string  `json:"client_oid,omitempty"`
-	Stp       string  `json:"stp,omitempty"`
+	Type      string `json:"type"`
+	Size      string `json:"size,omitempty"`
+	Side      string `json:"side"`
+	ProductId string `json:"product_id"`
+	ClientOID string `json:"client_oid,omitempty"`
+	Stp       string `json:"stp,omitempty"`
 	// Limit Order
-	Price       float64 `json:"price,string,omitempty"`
-	TimeInForce string  `json:"time_in_force,omitempty"`
-	PostOnly    bool    `json:"post_only,omitempty"`
-	CancelAfter string  `json:"cancel_after,omitempty"`
+	Price       string `json:"price,omitempty"`
+	TimeInForce string `json:"time_in_force,omitempty"`
+	PostOnly    bool   `json:"post_only,omitempty"`
+	CancelAfter string `json:"cancel_after,omitempty"`
 	// Market Order
-	Funds float64 `json:"funds,string,omitempty"`
+	Funds string `json:"funds,omitempty"`
 	// Response Fields
-	Id            string  `json:"id"`
-	Status        string  `json:"status,omitempty"`
-	Settled       bool    `json:"settled,omitempty"`
-	DoneReason    string  `json:"done_reason,omitempty"`
-	CreatedAt     Time    `json:"created_at,string,omitempty"`
-	FillFees      float64 `json:"fill_fees,string,omitempty"`
-	FilledSize    float64 `json:"filled_size,string,omitempty"`
-	ExecutedValue float64 `json:"executed_value,string,omitempty"`
+	Id            string `json:"id"`
+	Status        string `json:"status,omitempty"`
+	Settled       bool   `json:"settled,omitempty"`
+	DoneReason    string `json:"done_reason,omitempty"`
+	CreatedAt     Time   `json:"created_at,string,omitempty"`
+	FillFees      string `json:"fill_fees,omitempty"`
+	FilledSize    string `json:"filled_size,omitempty"`
+	ExecutedValue string `json:"executed_value,omitempty"`
 }
 
 type CancelAllOrdersParams struct {

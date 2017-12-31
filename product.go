@@ -10,53 +10,53 @@ import (
 )
 
 type Product struct {
-	Id             string  `json:"id"`
-	BaseCurrency   string  `json:"base_currency"`
-	QuoteCurrency  string  `json:"quote_currency"`
-	BaseMinSize    float64 `json:"base_min_size,string"`
-	BaseMaxSize    float64 `json:"base_max_size,string"`
-	QuoteIncrement float64 `json:"quote_increment,string"`
+	Id             string `json:"id"`
+	BaseCurrency   string `json:"base_currency"`
+	QuoteCurrency  string `json:"quote_currency"`
+	BaseMinSize    string `json:"base_min_size"`
+	BaseMaxSize    string `json:"base_max_size"`
+	QuoteIncrement string `json:"quote_increment"`
 }
 
 type Ticker struct {
-	TradeId int     `json:"trade_id,number"`
-	Price   float64 `json:"price,string"`
-	Size    float64 `json:"size,string"`
-	Time    Time    `json:"time,string"`
-	Bid     float64 `json:"bid,string"`
-	Ask     float64 `json:"ask,string"`
-	Volume  float64 `json:"volume,string"`
+	TradeId int    `json:"trade_id,number"`
+	Price   string `json:"price"`
+	Size    string `json:"size"`
+	Time    Time   `json:"time,string"`
+	Bid     string `json:"bid"`
+	Ask     string `json:"ask"`
+	Volume  string `json:"volume"`
 }
 
 type Trade struct {
-	TradeId int     `json:"trade_id,number"`
-	Price   float64 `json:"price,string"`
-	Size    float64 `json:"size,string"`
-	Time    Time    `json:"time,string"`
-	Side    string  `json:"side"`
+	TradeId int    `json:"trade_id,number"`
+	Price   string `json:"price"`
+	Size    string `json:"size"`
+	Time    Time   `json:"time,string"`
+	Side    string `json:"side"`
 }
 
 type HistoricRate struct {
 	Time   time.Time
-	Low    float64
-	High   float64
-	Open   float64
-	Close  float64
-	Volume float64
+	Low    string
+	High   string
+	Open   string
+	Close  string
+	Volume string
 }
 
 type Stats struct {
-	Low          float64 `json:"low,string"`
-	High         float64 `json:"high,string"`
-	Open         float64 `json:"open,string"`
-	Volume       float64 `json:"volume,string"`
-	Last         float64 `json:"last,string"`
-	Volume_30Day float64 `json:"volume_30day,string"`
+	Low          string `json:"low"`
+	High         string `json:"high"`
+	Open         string `json:"open"`
+	Volume       string `json:"volume"`
+	Last         string `json:"last"`
+	Volume_30Day string `json:"volume_30day"`
 }
 
 type BookEntry struct {
-	Price          float64
-	Size           float64
+	Price          string
+	Size           string
 	NumberOfOrders int
 	OrderId        string
 }
@@ -94,33 +94,23 @@ func (e *BookEntry) UnmarshalJSON(data []byte) error {
 		return errors.New("Expected string")
 	}
 
-	price, err := strconv.ParseFloat(priceString, 32)
-	if err != nil {
-		return err
-	}
-
-	size, err := strconv.ParseFloat(sizeString, 32)
-	if err != nil {
-		return err
-	}
-
 	*e = BookEntry{
-		Price: price,
-		Size:  size,
+		Price: priceString,
+		Size:  sizeString,
 	}
 
 	var stringOrderId string
-	numberOfOrdersFloat, ok := entry[2].(float64)
+	numberOfOrdersInt, ok := entry[2].(int)
 	if !ok {
 		// Try to see if it's a string
 		stringOrderId, ok = entry[2].(string)
 		if !ok {
-			return errors.New("Could not parse 3rd column, tried float and string")
+			return errors.New("Could not parse 3rd column, tried int and string")
 		}
 		e.OrderId = stringOrderId
 
 	} else {
-		e.NumberOfOrders = int(numberOfOrdersFloat)
+		e.NumberOfOrders = numberOfOrdersInt
 	}
 
 	return nil
@@ -133,43 +123,48 @@ func (e *HistoricRate) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	timeFloat, ok := entry[0].(float64)
+	t, ok := entry[0].(string)
 	if !ok {
-		return errors.New("Expected float")
+		return errors.New("Expected string")
 	}
 
-	lowFloat, ok := entry[1].(float64)
+	low, ok := entry[1].(string)
 	if !ok {
-		return errors.New("Expected float")
+		return errors.New("Expected string")
 	}
 
-	highFloat, ok := entry[2].(float64)
+	high, ok := entry[2].(string)
 	if !ok {
-		return errors.New("Expected float")
+		return errors.New("Expected string")
 	}
 
-	openFloat, ok := entry[3].(float64)
+	open, ok := entry[3].(string)
 	if !ok {
-		return errors.New("Expected float")
+		return errors.New("Expected string")
 	}
 
-	closeFloat, ok := entry[4].(float64)
+	close, ok := entry[4].(string)
 	if !ok {
-		return errors.New("Expected float")
+		return errors.New("Expected string")
 	}
 
-	volumeFloat, ok := entry[5].(float64)
+	volume, ok := entry[5].(string)
 	if !ok {
-		return errors.New("Expected float")
+		return errors.New("Expected string")
+	}
+
+	tInt, err := strconv.Atoi(t)
+	if err != nil {
+		return errors.New("Could not convert epoch string to int")
 	}
 
 	*e = HistoricRate{
-		Time:   time.Unix(int64(timeFloat), 0),
-		Low:    lowFloat,
-		High:   highFloat,
-		Open:   openFloat,
-		Close:  closeFloat,
-		Volume: volumeFloat,
+		Time:   time.Unix(int64(tInt), 0),
+		Low:    low,
+		High:   high,
+		Open:   open,
+		Close:  close,
+		Volume: volume,
 	}
 
 	return nil
