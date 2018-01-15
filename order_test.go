@@ -136,7 +136,7 @@ func TestListOrders(t *testing.T) {
 func TestCancelAllOrders(t *testing.T) {
 	client := NewTestClient()
 
-	for _, pair := range []string{"BTC-USD", "ETH-USD", "LTC-USD"} {
+	for _, pair := range []string{"BTC-USD"} {
 		order := Order{Price: 1.00, Size: 10000.00, Side: "buy", ProductId: pair}
 
 		if _, err := client.CreateOrder(&order); err != nil {
@@ -150,6 +150,6 @@ func TestCancelAllOrders(t *testing.T) {
 	}
 
 	if len(orderIDs) != 1 {
-		t.Error("Did not cancel single order")
+		t.Error("Did not cancel all orders")
 	}
 }
