@@ -62,7 +62,7 @@ func (c *Client) CancelAllOrders(p ...CancelAllOrdersParams) ([]string, error) {
 	url := "/orders"
 
 	if len(p) > 0 && p[0].ProductId != "" {
-		url = fmt.Sprintf("%s?product_id=", p[0].ProductId)
+		url = fmt.Sprintf("%s?product_id=%s", url, p[0].ProductId)
 	}
 
 	_, err := c.Request("DELETE", url, nil, &orderIDs)
