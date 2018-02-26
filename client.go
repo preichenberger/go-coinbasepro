@@ -103,6 +103,29 @@ func (c *Client) Request(method string, url string,
 	return res, nil
 }
 
+func (c *Client) AddSignature(msg *Message) error {
+	method := "GET"
+	url := "/users/self/verify"
+	timestamp := strconv.FormatInt(time.Now().Unix(), 10)
+	message := fmt.Sprintf(
+		"%s%s%s",
+		timestamp,
+		method,
+		url,
+	)
+	sig, err := c.generateSig(message, c.Secret)
+	if err != nil {
+		return err
+	}
+
+	msg.Key = c.Key
+	msg.Passphrase = c.Passphrase
+	msg.Timestamp = timestamp
+	msg.Signature = sig
+
+	return nil
+}
+
 // Headers generates a map that can be used as headers to authenticate a request
 func (c *Client) Headers(method, url, timestamp, data string) (map[string]string, error) {
 	h := make(map[string]string)
