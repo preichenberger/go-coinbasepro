@@ -29,6 +29,10 @@ type Message struct {
 	BestBid       string           `json:"best_bid"`
 	BestAsk       string           `json:"best_ask"`
 	Channels      []MessageChannel `json:"channels"`
+	Key           string           `json:"key"`
+	Passphrase    string           `json:"passphrase"`
+	Timestamp     string           `json:"timestamp"`
+	Signature     string           `json:"signature"`
 }
 
 type MessageChannel struct {
