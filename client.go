@@ -2,9 +2,6 @@ package gdax
 
 import (
 	"bytes"
-	"crypto/hmac"
-	"crypto/sha256"
-	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -118,25 +115,10 @@ func (c *Client) Headers(method, url, timestamp, data string) (map[string]string
 		data,
 	)
 
-	sig, err := c.generateSig(message, c.Secret)
+	sig, err := generateSig(message, c.Secret)
 	if err != nil {
 		return nil, err
 	}
 	h["CB-ACCESS-SIGN"] = sig
 	return h, nil
-}
-
-func (c *Client) generateSig(message, secret string) (string, error) {
-	key, err := base64.StdEncoding.DecodeString(secret)
-	if err != nil {
-		return "", err
-	}
-
-	signature := hmac.New(sha256.New, key)
-	_, err = signature.Write([]byte(message))
-	if err != nil {
-		return "", err
-	}
-
-	return base64.StdEncoding.EncodeToString(signature.Sum(nil)), nil
 }

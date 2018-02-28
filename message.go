@@ -29,9 +29,19 @@ type Message struct {
 	BestBid       float64          `json:"best_bid,string"`
 	BestAsk       float64          `json:"best_ask,string"`
 	Channels      []MessageChannel `json:"channels"`
+	UserId        string           `json:"user_id"`
+	ProfileId     string           `json:"profile_id"`
 }
 
 type MessageChannel struct {
 	Name       string   `json:"name"`
 	ProductIds []string `json:"product_ids"`
+}
+
+type SignedMessage struct {
+	Message
+	Key        string `json:"key"`
+	Passphrase string `json:"passphrase"`
+	Timestamp  string `json:"timestamp"`
+	Signature  string `json:"signature"`
 }
