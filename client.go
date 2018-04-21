@@ -2,12 +2,17 @@ package gdax
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
 	"time"
+
+	"golang.org/x/time/rate"
 )
 
 type Client struct {
@@ -15,20 +20,46 @@ type Client struct {
 	Secret     string
 	Key        string
 	Passphrase string
+	limiter    *rate.Limiter
 	HttpClient *http.Client
 }
 
-func NewClient(secret, key, passphrase string) *Client {
+func New(isSandbox bool) (*Client, error) {
+	secret := os.Getenv("GDAX_SECRET")
+	key := os.Getenv("GDAX_KEY")
+	passphrase := os.Getenv("GDAX_PASSPHRASE")
+
+	if secret == "" {
+		return nil, errors.New("GDAX_SECRET not set")
+	}
+	if key == "" {
+		return nil, errors.New("GDAX_KEY not set")
+	}
+	if passphrase == "" {
+		return nil, errors.New("GDAX_PASSPHRASE not set")
+	}
+
+	return NewClient(secret, key, passphrase, isSandbox), nil
+}
+
+func NewClient(secret, key, passphrase string, isSandbox bool) *Client {
+	var baseURL string
+	if !isSandbox {
+		baseURL = "https://api.gdax.com"
+	} else {
+		baseURL = "https://api-public.sandbox.gdax.com"
+	}
+
 	client := Client{
-		BaseURL:    "https://api.gdax.com",
+		BaseURL:    baseURL,
 		Secret:     secret,
 		Key:        key,
 		Passphrase: passphrase,
+		limiter:    rate.NewLimiter(5, 10),
 		HttpClient: &http.Client{
 			Timeout: 15 * time.Second,
 		},
 	}
-
 	return &client
 }
 
@@ -71,6 +102,14 @@ func (c *Client) Request(method string, url string,
 	h, err := c.Headers(method, url, timestamp, string(data))
 	for k, v := range h {
 		req.Header.Add(k, v)
+	}
+
+	log.Printf("rate limit; url: %+v, waiting: %+v\n",
+		url,
+		c.limiter.Reserve().Delay().Seconds(),
+	)
+	if err := c.limiter.Wait(context.Background()); err != nil {
+		return nil, err
 	}
 
 	res, err = c.HttpClient.Do(req)
