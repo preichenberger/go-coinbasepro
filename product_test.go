@@ -54,7 +54,7 @@ func TestListTrades(t *testing.T) {
 	cursor := client.ListTrades("BTC-USD")
 
 	for cursor.HasMore {
-		if err := cursor.NextPage(&trades); err != nil {
+		if err := cursor.PrevPage(&trades); err != nil {
 			t.Error(err)
 		}
 
