@@ -3,26 +3,16 @@ package gdax
 import (
 	"errors"
 	"fmt"
-	"net/http"
 	"os"
 	"reflect"
-	"time"
 )
 
 func NewTestClient() *Client {
 	secret := os.Getenv("TEST_COINBASE_SECRET")
 	key := os.Getenv("TEST_COINBASE_KEY")
 	passphrase := os.Getenv("TEST_COINBASE_PASSPHRASE")
-
-	return &Client{
-		BaseURL:    "https://api-public.sandbox.gdax.com",
-		Secret:     secret,
-		Key:        key,
-		Passphrase: passphrase,
-		HttpClient: &http.Client{
-			Timeout: 15 * time.Second,
-		},
-	}
+	isSandbox := true
+	return NewClient(secret, key, passphrase, isSandbox)
 }
 
 func StructHasZeroValues(i interface{}) bool {
