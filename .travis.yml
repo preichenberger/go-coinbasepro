@@ -3,4 +3,4 @@ go:
   - 1.8
   - tip
 script:
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && go test ./...'
+  - 'go build ./... && go test -v -race ./...'
