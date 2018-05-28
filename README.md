@@ -11,6 +11,15 @@ Go client for [GDAX](https://www.gdax.com)
 go get github.com/preichenberger/go-gdax
 ```
 
+### Run WebSocket demo
+```sh
+( \
+  go get -x -u github.com/banaio/go-gdax/... && \
+  cd $GOPATH/src/github.com/banaio/go-gdax && \
+  go run cmd/go-gdax/main.go
+)
+```
+
 ## Documentation
 For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-gdax) documentation.
 
