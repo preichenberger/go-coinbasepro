@@ -69,6 +69,8 @@ for cursor.HasMore {
 ```
 
 ### Decimals
+!!! As of 0.5 this library uses strings and is not backwards compatible with previous versions
+
 To manage precision correctly, this library sends all price values as strings. It is recommended to use a decimal library
 like Spring's [Decimal](https://github.com/shopspring/decimal) if you are doing any manipulation of prices.
 
