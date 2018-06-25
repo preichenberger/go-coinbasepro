@@ -6,10 +6,10 @@ Go GDAX [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://
 Go client for [GDAX](https://www.gdax.com)
 
 ## Installation
-
 ```sh
 go get github.com/preichenberger/go-gdax
 ```
+!!! As of 0.5 this library uses strings and is not backwards compatible with previous versions, to install previous versions, please use a tool like [GoDep](https://github.com/golang/dep)
 
 ## Documentation
 For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-gdax) documentation.
@@ -69,8 +69,6 @@ for cursor.HasMore {
 ```
 
 ### Decimals
-!!! As of 0.5 this library uses strings and is not backwards compatible with previous versions
-
 To manage precision correctly, this library sends all price values as strings. It is recommended to use a decimal library
 like Spring's [Decimal](https://github.com/shopspring/decimal) if you are doing any manipulation of prices.
 
