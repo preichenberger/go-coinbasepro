@@ -52,23 +52,15 @@ func TestListTrades(t *testing.T) {
 	var trades []Trade
 	client := NewTestClient()
 	cursor := client.ListTrades("BTC-USD")
-	count := 2
 
-	for cursor.HasMore {
-		if count <= 0 {
-			break
-		}
-		if err := cursor.NextPage(&trades); err != nil {
-			t.Error(err)
-		}
+	if err := cursor.NextPage(&trades); err != nil {
+		t.Error(err)
+	}
 
-		for _, a := range trades {
-			if StructHasZeroValues(a) {
-				t.Error(errors.New("Zero value"))
-			}
+	for _, a := range trades {
+		if StructHasZeroValues(a) {
+			t.Error(errors.New("Zero value"))
 		}
-
-		count = count - 1
 	}
 }
 
