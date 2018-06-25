@@ -99,18 +99,12 @@ func (e *BookEntry) UnmarshalJSON(data []byte) error {
 		Size:  sizeString,
 	}
 
-	var stringOrderId string
-	numberOfOrdersInt, ok := entry[2].(int)
-	if !ok {
-		// Try to see if it's a string
-		stringOrderId, ok = entry[2].(string)
-		if !ok {
-			return errors.New("Could not parse 3rd column, tried int and string")
-		}
-		e.OrderId = stringOrderId
-
+	if numberOfOrdersInt, ok := entry[2].(float64); ok {
+		e.NumberOfOrders = int(numberOfOrdersInt)
+	} else if orderId, ok := entry[2].(string); ok {
+		e.OrderId = orderId
 	} else {
-		e.NumberOfOrders = numberOfOrdersInt
+		return errors.New("Could not parse 3rd column, tried float64 and string")
 	}
 
 	return nil

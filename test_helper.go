@@ -49,7 +49,7 @@ func CompareProperties(a, b interface{}, properties []string) (bool, error) {
 		bValue := reflect.Indirect(bValueOf).FieldByName(property).Interface()
 
 		if aValue != bValue {
-			return false, errors.New(fmt.Sprintf("%s not equal", property))
+			return false, errors.New(fmt.Sprintf("%s not equal: %s - %s", property, aValue, bValue))
 		}
 	}
 
