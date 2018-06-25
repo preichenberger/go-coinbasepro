@@ -5,11 +5,11 @@ import (
 )
 
 type Account struct {
-	Id        string  `json:"id"`
-	Balance   float64 `json:"balance,string"`
-	Hold      float64 `json:"hold,string"`
-	Available float64 `json:"available,string"`
-	Currency  string  `json:"currency"`
+	Id        string `json:"id"`
+	Balance   string `json:"balance"`
+	Hold      string `json:"hold"`
+	Available string `json:"available"`
+	Currency  string `json:"currency"`
 }
 
 // Ledger
@@ -17,8 +17,8 @@ type Account struct {
 type LedgerEntry struct {
 	Id        int           `json:"id,number"`
 	CreatedAt Time          `json:"created_at,string"`
-	Amount    float64       `json:"amount,string"`
-	Balance   float64       `json:"balance,string"`
+	Amount    string        `json:"amount"`
+	Balance   string        `json:"balance"`
 	Type      string        `json:"type"`
 	Details   LedgerDetails `json:"details"`
 }
@@ -36,12 +36,12 @@ type GetAccountLedgerParams struct {
 // Holds
 
 type Hold struct {
-	AccountId string  `json:"account_id"`
-	CreatedAt Time    `json:"created_at,string"`
-	UpdatedAt Time    `json:"updated_at,string"`
-	Amount    float64 `json:"amount,string"`
-	Type      string  `json:"type"`
-	Ref       string  `json:"ref"`
+	AccountId string `json:"account_id"`
+	CreatedAt Time   `json:"created_at,string"`
+	UpdatedAt Time   `json:"updated_at,string"`
+	Amount    string `json:"amount"`
+	Type      string `json:"type"`
+	Ref       string `json:"ref"`
 }
 
 type ListHoldsParams struct {

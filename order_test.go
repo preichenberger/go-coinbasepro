@@ -9,8 +9,8 @@ func TestCreateLimitOrders(t *testing.T) {
 	client := NewTestClient()
 
 	order := Order{
-		Price:     1.00,
-		Size:      1000.00,
+		Price:     "1.00000000",
+		Size:      "1000.00000000",
 		Side:      "buy",
 		ProductId: "BTC-USD",
 	}
@@ -39,8 +39,8 @@ func TestCreateMarketOrders(t *testing.T) {
 	client := NewTestClient()
 
 	order := Order{
-		Funds:     1.00,
-		Size:      1000.00,
+		Funds:     "10.00",
+		Size:      "1000.00000000",
 		Side:      "buy",
 		Type:      "market",
 		ProductId: "BTC-USD",
@@ -66,8 +66,8 @@ func TestCancelOrder(t *testing.T) {
 	client := NewTestClient()
 
 	order := Order{
-		Price:     1.00,
-		Size:      1000.00,
+		Price:     "1.00",
+		Size:      "1000.00",
 		Side:      "buy",
 		ProductId: "BTC-USD",
 	}
@@ -87,8 +87,8 @@ func TestGetOrder(t *testing.T) {
 	client := NewTestClient()
 
 	order := Order{
-		Price:     1.00,
-		Size:      1.00,
+		Price:     "1.00",
+		Size:      "1.00",
 		Side:      "buy",
 		ProductId: "BTC-USD",
 	}
@@ -148,7 +148,7 @@ func TestCancelAllOrders(t *testing.T) {
 
 	for _, pair := range []string{"BTC-USD"} {
 		for i := 0; i < 2; i++ {
-			order := Order{Price: 100000.00, Size: 1.00, Side: "sell", ProductId: pair}
+			order := Order{Price: "100000.00", Size: "1.00", Side: "sell", ProductId: pair}
 
 			if _, err := client.CreateOrder(&order); err != nil {
 				t.Error(err)
