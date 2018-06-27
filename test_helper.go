@@ -65,21 +65,31 @@ func CompareProperties(a, b interface{}, properties []string) (bool, error) {
 	return true, nil
 }
 
+func Ensure(a interface {}) error {
+	field := reflect.Indirect(reflect.ValueOf(a))
+
+	switch field.Kind() {
+	case reflect.Slice:
+		if reflect.ValueOf(field.Interface()).Len() == 0 {
+			return errors.New(fmt.Sprintf("Slice is zero"))
+		}
+	default:
+		if reflect.Zero(field.Type()).Interface() == field.Interface() {
+			return errors.New(fmt.Sprintf("Property is zero"))
+		}
+	}
+
+	return nil
+}
+
 func EnsureProperties(a interface{}, properties []string) error {
 	valueOf := reflect.ValueOf(a)
 
 	for _, property := range properties {
 		field := reflect.Indirect(valueOf).FieldByName(property)
 
-		switch field.Kind() {
-		case reflect.Slice:
-			if reflect.ValueOf(field.Interface()).Len() == 0 {
-				return errors.New(fmt.Sprintf("Slice is zero: %s", property))
-			}
-		default:
-			if reflect.Zero(field.Type()).Interface() == field.Interface() {
-				return errors.New(fmt.Sprintf("Property is zero: %s", property))
-			}
+		if err := Ensure(field.Interface()); err != nil {
+			return errors.New(fmt.Sprintf("%s: %s", err.Error(), property))
 		}
 	}
 

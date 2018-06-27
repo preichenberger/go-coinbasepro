@@ -40,7 +40,7 @@ func TestGetAccount(t *testing.T) {
 	}
 }
 func TestListAccountLedger(t *testing.T) {
-	var ledger []LedgerEntry
+	var ledgers []LedgerEntry
 	client := NewTestClient()
 	accounts, err := client.GetAccounts()
 	if err != nil {
@@ -50,14 +50,20 @@ func TestListAccountLedger(t *testing.T) {
 	for _, a := range accounts {
 		cursor := client.ListAccountLedger(a.Id)
 		for cursor.HasMore {
-			if err := cursor.NextPage(&ledger); err != nil {
+			if err := cursor.NextPage(&ledgers); err != nil {
 				t.Error(err)
 			}
 
-			for _, l := range ledger {
-				// Check for decoding issues
-				if StructHasZeroValues(l) {
-					t.Error(errors.New("Zero value"))
+			for _, ledger := range ledgers {
+				props := []string{"Id", "CreatedAt", "Amount", "Balance", "Type"}
+				if err := EnsureProperties(ledger, props); err != nil {
+					t.Error(err)
+				}
+
+				if ledger.Type == "match" || ledger.Type == "fee" {
+					if err := Ensure(ledger.Details); err != nil {
+						t.Error(errors.New("Details is missing"))
+					}
 				}
 			}
 		}
