@@ -28,10 +28,10 @@ func NewTestClient() *Client {
 }
 
 func NewTestWebsocketClient() (*ws.Conn, error) {
-  var wsDialer ws.Dialer
-  wsConn, _, err := wsDialer.Dial("wss://ws-feed-public.sandbox.gdax.com", nil)
+	var wsDialer ws.Dialer
+	wsConn, _, err := wsDialer.Dial("wss://ws-feed-public.sandbox.gdax.com", nil)
 
-  return wsConn, err
+	return wsConn, err
 }
 
 func StructHasZeroValues(i interface{}) bool {
@@ -64,7 +64,6 @@ func CompareProperties(a, b interface{}, properties []string) (bool, error) {
 
 	return true, nil
 }
-
 
 func EnsureProperties(a interface{}, properties []string) error {
 	valueOf := reflect.ValueOf(a)
