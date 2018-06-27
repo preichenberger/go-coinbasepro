@@ -132,8 +132,8 @@ Listen for websocket messages
     println(err.Error())
   }
 
-  message:= gdax.Message{}
   for true {
+    message := gdax.Message{}
     if err := wsConn.ReadJSON(&message); err != nil {
       println(err.Error())
       break

@@ -7,6 +7,8 @@ import (
 	"os"
 	"reflect"
 	"time"
+
+	ws "github.com/gorilla/websocket"
 )
 
 func NewTestClient() *Client {
@@ -25,6 +27,13 @@ func NewTestClient() *Client {
 	}
 }
 
+func NewTestWebsocketClient() (*ws.Conn, error) {
+  var wsDialer ws.Dialer
+  wsConn, _, err := wsDialer.Dial("wss://ws-feed-public.sandbox.gdax.com", nil)
+
+  return wsConn, err
+}
+
 func StructHasZeroValues(i interface{}) bool {
 	iv := reflect.ValueOf(i)
 
@@ -32,7 +41,7 @@ func StructHasZeroValues(i interface{}) bool {
 
 	for i := 0; i < iv.NumField(); i++ {
 		field := iv.Field(i)
-		if reflect.Zero(field.Type()) == field {
+		if reflect.Zero(field.Type()).Interface() == field.Interface() {
 			return true
 		}
 	}
@@ -54,4 +63,26 @@ func CompareProperties(a, b interface{}, properties []string) (bool, error) {
 	}
 
 	return true, nil
+}
+
+
+func EnsureProperties(a interface{}, properties []string) error {
+	valueOf := reflect.ValueOf(a)
+
+	for _, property := range properties {
+		field := reflect.Indirect(valueOf).FieldByName(property)
+
+		switch field.Kind() {
+		case reflect.Slice:
+			if reflect.ValueOf(field.Interface()).Len() == 0 {
+				return errors.New(fmt.Sprintf("Slice is zero: %s", property))
+			}
+		default:
+			if reflect.Zero(field.Type()).Interface() == field.Interface() {
+				return errors.New(fmt.Sprintf("Property is zero: %s", property))
+			}
+		}
+	}
+
+	return nil
 }
