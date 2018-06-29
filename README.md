@@ -9,7 +9,7 @@ Go client for [GDAX](https://www.gdax.com)
 ```sh
 go get github.com/preichenberger/go-gdax
 ```
-!!! As of 0.5 this library uses strings and is not backwards compatible with previous versions, to install previous versions, please use a tool like [GoDep](https://github.com/golang/dep)
+***!!! As of 0.5 this library uses strings and is not backwards compatible with previous versions, to install previous versions, please use a tool like [GoDep](https://github.com/golang/dep)***
 
 ## Documentation
 For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-gdax) documentation.
@@ -48,26 +48,6 @@ client.HttpClient = &http.Client {
 }
 ```
 
-### Cursor
-This library uses a cursor pattern so you don't have to keep track of pagination.
-
-```go
-var orders []gdax.Order
-cursor = client.ListOrders()
-
-for cursor.HasMore {
-  if err := cursor.NextPage(&orders); err != nil {
-    println(err.Error())
-    return
-  }
-
-  for _, o := range orders {
-    println(o.Id)
-  }
-}
-
-```
-
 ### Decimals
 To manage precision correctly, this library sends all price values as strings. It is recommended to use a decimal library
 like Spring's [Decimal](https://github.com/shopspring/decimal) if you are doing any manipulation of prices.
@@ -101,6 +81,26 @@ if err != nil {
 }
 
 println(savedOrder.Id)
+```
+
+### Cursor
+This library uses a cursor pattern so you don't have to keep track of pagination.
+
+```go
+var orders []gdax.Order
+cursor = client.ListOrders()
+
+for cursor.HasMore {
+  if err := cursor.NextPage(&orders); err != nil {
+    println(err.Error())
+    return
+  }
+
+  for _, o := range orders {
+    println(o.Id)
+  }
+}
+
 ```
 
 ### Websockets
@@ -176,7 +176,7 @@ Get Accounts:
 
 List Account Ledger:
 ```go
-  var ledger []gdax.LedgerEntry
+  var ledgers []gdax.LedgerEntry
 
   accounts, err := client.GetAccounts()
   if err != nil {
@@ -186,11 +186,11 @@ List Account Ledger:
   for _, a := range accounts {
     cursor := client.ListAccountLedger(a.Id)
     for cursor.HasMore {
-      if err := cursor.NextPage(&ledger); err != nil {
+      if err := cursor.NextPage(&ledgers); err != nil {
         println(err.Error())
       }
 
-      for _, e := range ledger {
+      for _, e := range ledgers {
         println(e.Amount)
       }
   }
@@ -199,8 +199,8 @@ List Account Ledger:
 Create an Order:
 ```go
   order := gdax.Order{
-    Price: 1.00,
-    Size: 1.00,
+    Price: "1.00",
+    Size: "1.00",
     Side: "buy",
     ProductId: "BTC-USD",
   }
@@ -217,7 +217,7 @@ Transfer funds:
 ```go
   transfer := gdax.Transfer {
     Type: "deposit",
-    Amount: 1.00,
+    Amount: "1.00",
   }
 
   savedTransfer, err := client.CreateTransfer(&transfer)
