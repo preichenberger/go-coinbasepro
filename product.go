@@ -38,11 +38,11 @@ type Trade struct {
 
 type HistoricRate struct {
 	Time   time.Time
-	Low    string
-	High   string
-	Open   string
-	Close  string
-	Volume string
+	Low    float64
+	High   float64
+	Open   float64
+	Close  float64
+	Volume float64
 }
 
 type Stats struct {
@@ -117,43 +117,38 @@ func (e *HistoricRate) UnmarshalJSON(data []byte) error {
 		return err
 	}
 
-	t, ok := entry[0].(string)
+	t, ok := entry[0].(float64)
 	if !ok {
-		return errors.New("Expected string")
+		return errors.New("Expected float64")
 	}
 
-	low, ok := entry[1].(string)
+	low, ok := entry[1].(float64)
 	if !ok {
-		return errors.New("Expected string")
+		return errors.New("Expected float64")
 	}
 
-	high, ok := entry[2].(string)
+	high, ok := entry[2].(float64)
 	if !ok {
-		return errors.New("Expected string")
+		return errors.New("Expected float64")
 	}
 
-	open, ok := entry[3].(string)
+	open, ok := entry[3].(float64)
 	if !ok {
-		return errors.New("Expected string")
+		return errors.New("Expected float64")
 	}
 
-	close, ok := entry[4].(string)
+	close, ok := entry[4].(float64)
 	if !ok {
-		return errors.New("Expected string")
+		return errors.New("Expected float64")
 	}
 
-	volume, ok := entry[5].(string)
+	volume, ok := entry[5].(float64)
 	if !ok {
-		return errors.New("Expected string")
-	}
-
-	tInt, err := strconv.Atoi(t)
-	if err != nil {
-		return errors.New("Could not convert epoch string to int")
+		return errors.New("Expected float64")
 	}
 
 	*e = HistoricRate{
-		Time:   time.Unix(int64(tInt), 0),
+		Time:   time.Unix(int64(t), 0),
 		Low:    low,
 		High:   high,
 		Open:   open,

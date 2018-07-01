@@ -83,6 +83,12 @@ if err != nil {
 println(savedOrder.Id)
 ```
 
+### Retry
+You can set a retry count which uses exponential backoff: (2^(retry_attempt) - 1) / 2 * 1000 * milliseconds
+```
+client.RetryCount = 3 # 500ms, 1500ms, 3500ms
+```
+
 ### Cursor
 This library uses a cursor pattern so you don't have to keep track of pagination.
 

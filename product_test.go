@@ -3,7 +3,6 @@ package gdax
 import (
 	"errors"
 	"testing"
-	"time"
 )
 
 func TestGetProducts(t *testing.T) {
@@ -65,32 +64,31 @@ func TestListTrades(t *testing.T) {
 }
 
 func TestGetHistoricRates(t *testing.T) {
-	// Test server is busted
-	return
-
 	client := NewTestClient()
 	params := GetHistoricRatesParams{
-		Start:       time.Now().Add(-24 * 4 * time.Hour),
-		End:         time.Now().Add(-24 * 2 * time.Hour),
-		Granularity: 1000,
+		Granularity: 3600,
 	}
 
-	_, err := client.GetHistoricRates("BTC-USD", params)
+	historicRates, err := client.GetHistoricRates("BTC-USD", params)
 	if err != nil {
+		t.Error(err)
+	}
+
+	props := []string{"Time", "Low", "High", "Open", "Close", "Volume"}
+	if err := EnsureProperties(historicRates[0], props); err != nil {
 		t.Error(err)
 	}
 }
 
 func TestGetStats(t *testing.T) {
-	// Test server is busted
-	return
-
 	client := NewTestClient()
 	stats, err := client.GetStats("BTC-USD")
 	if err != nil {
 		t.Error(err)
 	}
-	if StructHasZeroValues(stats) {
-		t.Error(errors.New("Zero value"))
+
+	props := []string{"Low", "Open", "Volume", "Last", "Volume_30Day"}
+	if err := EnsureProperties(stats, props); err != nil {
+		t.Error(err)
 	}
 }

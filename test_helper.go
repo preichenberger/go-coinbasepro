@@ -16,15 +16,14 @@ func NewTestClient() *Client {
 	key := os.Getenv("TEST_COINBASE_KEY")
 	passphrase := os.Getenv("TEST_COINBASE_PASSPHRASE")
 
-	return &Client{
-		BaseURL:    "https://api-public.sandbox.gdax.com",
-		Secret:     secret,
-		Key:        key,
-		Passphrase: passphrase,
-		HttpClient: &http.Client{
-			Timeout: 15 * time.Second,
-		},
+	client := NewClient(secret, key, passphrase)
+	client.BaseURL = "https://api-public.sandbox.gdax.com"
+	client.HttpClient = &http.Client{
+		Timeout: 15 * time.Second,
 	}
+	client.RetryCount = 2
+
+	return client
 }
 
 func NewTestWebsocketClient() (*ws.Conn, error) {
@@ -65,7 +64,7 @@ func CompareProperties(a, b interface{}, properties []string) (bool, error) {
 	return true, nil
 }
 
-func Ensure(a interface {}) error {
+func Ensure(a interface{}) error {
 	field := reflect.Indirect(reflect.ValueOf(a))
 
 	switch field.Kind() {

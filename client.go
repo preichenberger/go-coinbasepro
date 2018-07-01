@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"math"
 	"net/http"
 	"os"
 	"strconv"
@@ -16,6 +17,7 @@ type Client struct {
 	Key        string
 	Passphrase string
 	HttpClient *http.Client
+	RetryCount int
 }
 
 func NewClient(secret, key, passphrase string) *Client {
@@ -27,12 +29,30 @@ func NewClient(secret, key, passphrase string) *Client {
 		HttpClient: &http.Client{
 			Timeout: 15 * time.Second,
 		},
+		RetryCount: 0,
 	}
 
 	return &client
 }
 
 func (c *Client) Request(method string, url string,
+	params, result interface{}) (res *http.Response, err error) {
+	for i := 0; i < c.RetryCount+1; i++ {
+		retryDuration := time.Duration((math.Pow(2, float64(i))-1)/2*1000) * time.Millisecond
+		time.Sleep(retryDuration)
+
+		res, err = c.request(method, url, params, result)
+		if res.StatusCode == 429 {
+			continue
+		} else {
+			break
+		}
+	}
+
+	return res, err
+}
+
+func (c *Client) request(method string, url string,
 	params, result interface{}) (res *http.Response, err error) {
 	var data []byte
 	body := bytes.NewReader(make([]byte, 0))
