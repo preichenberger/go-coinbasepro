@@ -3,7 +3,7 @@ Go GDAX [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://
 
 ## Summary
 
-Go client for [GDAX](https://www.gdax.com)
+Go client for [CoinBase Pro](https://pro.coinbase.com) formerly known as GDAX
 
 ## Installation
 ```sh
@@ -118,7 +118,7 @@ Listen for websocket messages
   )
 
   var wsDialer ws.Dialer
-  wsConn, _, err := wsDialer.Dial("wss://ws-feed.gdax.com", nil)
+  wsConn, _, err := wsDialer.Dial("wss://ws-feed.pro.coinbase.com", nil)
   if err != nil {
     println(err.Error())
   }
