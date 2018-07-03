@@ -22,7 +22,7 @@ type Client struct {
 
 func NewClient(secret, key, passphrase string) *Client {
 	client := Client{
-		BaseURL:    "https://api.gdax.com",
+		BaseURL:    "https://api.pro.coinbase.com",
 		Secret:     secret,
 		Key:        key,
 		Passphrase: passphrase,

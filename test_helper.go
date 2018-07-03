@@ -17,7 +17,7 @@ func NewTestClient() *Client {
 	passphrase := os.Getenv("TEST_COINBASE_PASSPHRASE")
 
 	client := NewClient(secret, key, passphrase)
-	client.BaseURL = "https://api-public.sandbox.gdax.com"
+	client.BaseURL = "https://api-public.sandbox.pro.coinbase.com"
 	client.HttpClient = &http.Client{
 		Timeout: 15 * time.Second,
 	}
@@ -28,7 +28,7 @@ func NewTestClient() *Client {
 
 func NewTestWebsocketClient() (*ws.Conn, error) {
 	var wsDialer ws.Dialer
-	wsConn, _, err := wsDialer.Dial("wss://ws-feed-public.sandbox.gdax.com", nil)
+	wsConn, _, err := wsDialer.Dial("wss://ws-feed-public.sandbox.pro.coinbase.com", nil)
 
 	return wsConn, err
 }
