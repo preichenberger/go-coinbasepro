@@ -127,6 +127,12 @@ Listen for websocket messages
     Type:      "subscribe",
     Channels: []gdax.MessageChannel{
       gdax.MessageChannel{
+        Name: "heartbeat",
+        ProductIds: []string{
+          "BTC-USD",
+        },
+      },
+      gdax.MessageChannel{
         Name: "level2",
         ProductIds: []string{
           "BTC-USD",
