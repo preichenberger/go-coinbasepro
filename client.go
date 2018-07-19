@@ -42,7 +42,9 @@ func (c *Client) Request(method string, url string,
 		time.Sleep(retryDuration)
 
 		res, err = c.request(method, url, params, result)
-		if res.StatusCode == 429 {
+		if err != nil {
+			return res, err
+		} else if res.StatusCode == 429 {
 			continue
 		} else {
 			break
@@ -89,6 +91,10 @@ func (c *Client) request(method string, url string,
 	req.Header.Add("User-Agent", "Baylatent Bot 2.0")
 
 	h, err := c.Headers(method, url, timestamp, string(data))
+	if err != nil {
+		return res, err
+	}
+
 	for k, v := range h {
 		req.Header.Add(k, v)
 	}
