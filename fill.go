@@ -23,16 +23,13 @@ type ListFillsParams struct {
 	Pagination PaginationParams
 }
 
-func (c *Client) ListFills(p ...ListFillsParams) *Cursor {
-	paginationParams := PaginationParams{}
-	if len(p) > 0 {
-		paginationParams = p[0].Pagination
-		if p[0].OrderId != "" {
-			paginationParams.AddExtraParam("order_id", p[0].OrderId)
-		}
-		if p[0].ProductId != "" {
-			paginationParams.AddExtraParam("product_id", p[0].ProductId)
-		}
+func (c *Client) ListFills(p ListFillsParams) *Cursor {
+	paginationParams := p.Pagination
+	if p.OrderId != "" {
+		paginationParams.AddExtraParam("order_id", p.OrderId)
+	}
+	if p.ProductId != "" {
+		paginationParams.AddExtraParam("product_id", p.ProductId)
 	}
 
 	return NewCursor(c, "GET", fmt.Sprintf("/fills"),

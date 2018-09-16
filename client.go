@@ -86,7 +86,7 @@ func (c *Client) request(method string, url string,
 
 	req.Header.Add("Accept", "application/json")
 	req.Header.Add("Content-Type", "application/json")
-	req.Header.Add("User-Agent", "Baylatent Bot 2.0")
+	req.Header.Add("User-Agent", "Go Coinbase Pro Client 1.0")
 
 	h, err := c.Headers(method, url, timestamp, string(data))
 	if err != nil {

@@ -45,6 +45,16 @@ func TestGetTicker(t *testing.T) {
 	if StructHasZeroValues(ticker) {
 		t.Error(errors.New("Zero value"))
 	}
+
+	ticker, err = client.GetTicker("ETH-BTC")
+	if err != nil {
+		t.Error(err)
+	}
+
+	if StructHasZeroValues(ticker) {
+		t.Error(errors.New("Zero value"))
+	}
+
 }
 
 func TestListTrades(t *testing.T) {
