@@ -3,6 +3,7 @@ package gdax
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strconv"
 )
 
@@ -17,7 +18,7 @@ func (s *StringNumber) UnmarshalJSON(data []byte) error {
 
 	switch v := v.(type) {
 	case float64:
-		*s = StringNumber(strconv.Itoa(int(v)))
+		*s = StringNumber(fmt.Sprintf("%f", v))
 	case int:
 		*s = StringNumber(strconv.Itoa(v))
 	case string:
