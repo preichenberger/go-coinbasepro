@@ -10,6 +10,7 @@ type Message struct {
 	ProductIds    []string         `json:"product_ids"`
 	TradeId       int              `json:"trade_id,number"`
 	OrderId       string           `json:"order_id"`
+	ClientOID     string           `json:"client_oid"`
 	Sequence      int64            `json:"sequence,number"`
 	MakerOrderId  string           `json:"maker_order_id"`
 	TakerOrderId  string           `json:"taker_order_id"`
