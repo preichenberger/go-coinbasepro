@@ -13,7 +13,7 @@ type WithdrawalCrypto struct {
 type WithdrawalCoinbase struct {
 	Currency          string `json:"currency"`
 	Amount            string `json:"amount"`
-	CoinbaseAccountId string `json:"coinbase_account_id"`
+	CoinbaseAccountID string `json:"coinbase_account_id"`
 }
 
 func (c *Client) CreateWithdrawalCrypto(newWithdrawCrypto *WithdrawalCrypto) (WithdrawalCrypto, error) {

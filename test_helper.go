@@ -1,7 +1,6 @@
 package gdax
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 	"os"
@@ -18,7 +17,7 @@ func NewTestClient() *Client {
 
 	client := NewClient(secret, key, passphrase)
 	client.BaseURL = "https://api-public.sandbox.pro.coinbase.com"
-	client.HttpClient = &http.Client{
+	client.HTTPClient = &http.Client{
 		Timeout: 15 * time.Second,
 	}
 	client.RetryCount = 2
@@ -57,7 +56,7 @@ func CompareProperties(a, b interface{}, properties []string) (bool, error) {
 		bValue := reflect.Indirect(bValueOf).FieldByName(property).Interface()
 
 		if aValue != bValue {
-			return false, errors.New(fmt.Sprintf("%s not equal: %s - %s", property, aValue, bValue))
+			return false, fmt.Errorf(fmt.Sprintf("%s not equal: %s - %s", property, aValue, bValue))
 		}
 	}
 
@@ -70,11 +69,11 @@ func Ensure(a interface{}) error {
 	switch field.Kind() {
 	case reflect.Slice:
 		if reflect.ValueOf(field.Interface()).Len() == 0 {
-			return errors.New(fmt.Sprintf("Slice is zero"))
+			return fmt.Errorf(fmt.Sprintf("Slice is zero"))
 		}
 	default:
 		if reflect.Zero(field.Type()).Interface() == field.Interface() {
-			return errors.New(fmt.Sprintf("Property is zero"))
+			return fmt.Errorf(fmt.Sprintf("Property is zero"))
 		}
 	}
 
@@ -88,7 +87,7 @@ func EnsureProperties(a interface{}, properties []string) error {
 		field := reflect.Indirect(valueOf).FieldByName(property)
 
 		if err := Ensure(field.Interface()); err != nil {
-			return errors.New(fmt.Sprintf("%s: %s", err.Error(), property))
+			return fmt.Errorf(fmt.Sprintf("%s: %s", err.Error(), property))
 		}
 	}
 

@@ -10,7 +10,7 @@ import (
 )
 
 type Product struct {
-	Id             string `json:"id"`
+	ID             string `json:"id"`
 	BaseCurrency   string `json:"base_currency"`
 	QuoteCurrency  string `json:"quote_currency"`
 	BaseMinSize    string `json:"base_min_size"`
@@ -19,7 +19,7 @@ type Product struct {
 }
 
 type Ticker struct {
-	TradeId int          `json:"trade_id,number"`
+	TradeID int          `json:"trade_id,number"`
 	Price   string       `json:"price"`
 	Size    string       `json:"size"`
 	Time    Time         `json:"time,string"`
@@ -29,7 +29,7 @@ type Ticker struct {
 }
 
 type Trade struct {
-	TradeId int    `json:"trade_id,number"`
+	TradeID int    `json:"trade_id,number"`
 	Price   string `json:"price"`
 	Size    string `json:"size"`
 	Time    Time   `json:"time,string"`
@@ -46,19 +46,19 @@ type HistoricRate struct {
 }
 
 type Stats struct {
-	Low          string `json:"low"`
-	High         string `json:"high"`
-	Open         string `json:"open"`
-	Volume       string `json:"volume"`
-	Last         string `json:"last"`
-	Volume_30Day string `json:"volume_30day"`
+	Low         string `json:"low"`
+	High        string `json:"high"`
+	Open        string `json:"open"`
+	Volume      string `json:"volume"`
+	Last        string `json:"last"`
+	Volume30Day string `json:"volume_30day"`
 }
 
 type BookEntry struct {
 	Price          string
 	Size           string
 	NumberOfOrders int
-	OrderId        string
+	OrderID        string
 }
 
 type Book struct {
@@ -101,8 +101,8 @@ func (e *BookEntry) UnmarshalJSON(data []byte) error {
 
 	if numberOfOrdersInt, ok := entry[2].(float64); ok {
 		e.NumberOfOrders = int(numberOfOrdersInt)
-	} else if orderId, ok := entry[2].(string); ok {
-		e.OrderId = orderId
+	} else if orderID, ok := entry[2].(string); ok {
+		e.OrderID = orderID
 	} else {
 		return errors.New("Could not parse 3rd column, tried float64 and string")
 	}
