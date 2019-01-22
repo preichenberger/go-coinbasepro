@@ -12,7 +12,7 @@ func TestCreateLimitOrders(t *testing.T) {
 		Price:     "1.00000000",
 		Size:      "1000.00000000",
 		Side:      "buy",
-		ProductId: "BTC-USD",
+		ProductID: "BTC-USD",
 	}
 
 	savedOrder, err := client.CreateOrder(&order)
@@ -20,7 +20,7 @@ func TestCreateLimitOrders(t *testing.T) {
 		t.Error(err)
 	}
 
-	if savedOrder.Id == "" {
+	if savedOrder.ID == "" {
 		t.Error(errors.New("No create id found"))
 	}
 
@@ -30,7 +30,7 @@ func TestCreateLimitOrders(t *testing.T) {
 		t.Error(err)
 	}
 
-	if err := client.CancelOrder(savedOrder.Id); err != nil {
+	if err := client.CancelOrder(savedOrder.ID); err != nil {
 		t.Error(err)
 	}
 }
@@ -43,7 +43,7 @@ func TestCreateMarketOrders(t *testing.T) {
 		Size:      "1000.00000000",
 		Side:      "buy",
 		Type:      "market",
-		ProductId: "BTC-USD",
+		ProductID: "BTC-USD",
 	}
 
 	savedOrder, err := client.CreateOrder(&order)
@@ -51,7 +51,7 @@ func TestCreateMarketOrders(t *testing.T) {
 		t.Error(err)
 	}
 
-	if savedOrder.Id == "" {
+	if savedOrder.ID == "" {
 		t.Error(errors.New("No create id found"))
 	}
 
@@ -69,7 +69,7 @@ func TestCancelOrder(t *testing.T) {
 		Price:     "1.00",
 		Size:      "1000.00",
 		Side:      "buy",
-		ProductId: "BTC-USD",
+		ProductID: "BTC-USD",
 	}
 
 	savedOrder, err := client.CreateOrder(&order)
@@ -77,7 +77,7 @@ func TestCancelOrder(t *testing.T) {
 		t.Error(err)
 	}
 
-	if err := client.CancelOrder(savedOrder.Id); err != nil {
+	if err := client.CancelOrder(savedOrder.ID); err != nil {
 		t.Error(err)
 		t.Error(err)
 	}
@@ -90,7 +90,7 @@ func TestGetOrder(t *testing.T) {
 		Price:     "1.00",
 		Size:      "1.00",
 		Side:      "buy",
-		ProductId: "BTC-USD",
+		ProductID: "BTC-USD",
 	}
 
 	savedOrder, err := client.CreateOrder(&order)
@@ -98,16 +98,16 @@ func TestGetOrder(t *testing.T) {
 		t.Error(err)
 	}
 
-	getOrder, err := client.GetOrder(savedOrder.Id)
+	getOrder, err := client.GetOrder(savedOrder.ID)
 	if err != nil {
 		t.Error(err)
 	}
 
-	if getOrder.Id != savedOrder.Id {
+	if getOrder.ID != savedOrder.ID {
 		t.Error(errors.New("Order ids do not match"))
 	}
 
-	if err := client.CancelOrder(savedOrder.Id); err != nil {
+	if err := client.CancelOrder(savedOrder.ID); err != nil {
 		t.Error(err)
 	}
 }
@@ -129,7 +129,7 @@ func TestListOrders(t *testing.T) {
 		}
 	}
 
-	cursor = client.ListOrders(ListOrdersParams{Status: "open", ProductId: "LTC-EUR"})
+	cursor = client.ListOrders(ListOrdersParams{Status: "open", ProductID: "LTC-EUR"})
 	for cursor.HasMore {
 		if err := cursor.NextPage(&orders); err != nil {
 			t.Error(err)
@@ -148,14 +148,14 @@ func TestCancelAllOrders(t *testing.T) {
 
 	for _, pair := range []string{"BTC-USD"} {
 		for i := 0; i < 2; i++ {
-			order := Order{Price: "100000.00", Size: "1.00", Side: "sell", ProductId: pair}
+			order := Order{Price: "100000.00", Size: "1.00", Side: "sell", ProductID: pair}
 
 			if _, err := client.CreateOrder(&order); err != nil {
 				t.Error(err)
 			}
 		}
 
-		orderIDs, err := client.CancelAllOrders(CancelAllOrdersParams{ProductId: pair})
+		orderIDs, err := client.CancelAllOrders(CancelAllOrdersParams{ProductID: pair})
 		if err != nil {
 			t.Error(err)
 		}

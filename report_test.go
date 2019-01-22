@@ -21,7 +21,7 @@ func TestCreateReportAndStatus(t *testing.T) {
 		t.Error(err)
 	}
 
-	currentReport, err := client.GetReportStatus(report.Id)
+	currentReport, err := client.GetReportStatus(report.ID)
 	if err != nil {
 		t.Error(err)
 	}

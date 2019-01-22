@@ -9,7 +9,7 @@ func TestListFills(t *testing.T) {
 	var fills []Fill
 	client := NewTestClient()
 	params := ListFillsParams{
-		ProductId: "BTC-USD",
+		ProductID: "BTC-USD",
 	}
 	cursor := client.ListFills(params)
 	for cursor.HasMore {
