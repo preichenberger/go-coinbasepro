@@ -1,15 +1,24 @@
-Go coinbasepro [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/preichenberger/go-coinbasepro) [![Build Status](https://travis-ci.org/preichenberger/go-coinbasepro.svg?branch=master)](https://travis-ci.org/preichenberger/go-coinbasepro)
+Go Coinbase Pro [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/preichenberger/go-coinbasepro) [![Build Status](https://travis-ci.org/preichenberger/go-coinbasepro.svg?branch=master)](https://travis-ci.org/preichenberger/go-coinbasepro)
 ========
 
 ## Summary
 
-Go client for [CoinBase Pro](https://pro.coinbase.com) formerly known as coinbasepro
+Go client for [CoinBase Pro](https://pro.coinbase.com) formerly known as gdax
 
 ## Installation
+If using Go modules (Go version >= 11.1) simply import as needed: github.com/preichenberger/go-coinbasepro/v2
+```sh
+go mod init github.com/yourusername/yourprojectname
+```
+
+### Older Go versions
 ```sh
 go get github.com/preichenberger/go-coinbasepro
 ```
-***!!! As of 0.5 this library uses strings and is not backwards compatible with previous versions, to install previous versions, please use a tool like [GoDep](https://github.com/golang/dep)***
+
+### Significant releases
+- 0.5.7, last release before rename package to: coinbasepro
+- 0.5, as of 0.5 this library uses strings and is not backwards compatible
 
 ## Documentation
 For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbasepro) documentation.
@@ -21,7 +30,7 @@ How to create a client:
 
 import (
   "os"
-  coinbasepro "github.com/preichenberger/go-coinbasepro"
+  coinbasepro "github.com/preichenberger/go-coinbasepro/v2"
 )
 
 secret := os.Getenv("COINBASE_SECRET")
@@ -72,7 +81,7 @@ order := coinbasepro.Order{
   Price: lastPrice.Add(decimal.NewFromFloat(1.00)).String(),
   Size: "2.00",
   Side: "buy",
-  ProductId: "BTC-USD",
+  ProductID: "BTC-USD",
 }
 
 savedOrder, err := client.CreateOrder(&order)
@@ -80,7 +89,7 @@ if err != nil {
   println(err.Error())
 }
 
-println(savedOrder.Id)
+println(savedOrder.ID)
 ```
 
 ### Retry
@@ -103,7 +112,7 @@ for cursor.HasMore {
   }
 
   for _, o := range orders {
-    println(o.Id)
+    println(o.ID)
   }
 }
 
@@ -128,13 +137,13 @@ Listen for websocket messages
     Channels: []coinbasepro.MessageChannel{
       coinbasepro.MessageChannel{
         Name: "heartbeat",
-        ProductIds: []string{
+        ProductIDs: []string{
           "BTC-USD",
         },
       },
       coinbasepro.MessageChannel{
         Name: "level2",
-        ProductIds: []string{
+        ProductIDs: []string{
           "BTC-USD",
         },
       },
@@ -196,7 +205,7 @@ List Account Ledger:
   }
 
   for _, a := range accounts {
-    cursor := client.ListAccountLedger(a.Id)
+    cursor := client.ListAccountLedger(a.ID)
     for cursor.HasMore {
       if err := cursor.NextPage(&ledgers); err != nil {
         println(err.Error())
@@ -214,7 +223,7 @@ Create an Order:
     Price: "1.00",
     Size: "1.00",
     Side: "buy",
-    ProductId: "BTC-USD",
+    ProductID: "BTC-USD",
   }
 
   savedOrder, err := client.CreateOrder(&order)
@@ -222,7 +231,7 @@ Create an Order:
     println(err.Error())
   }
 
-  println(savedOrder.Id)
+  println(savedOrder.ID)
 ```
 
 Transfer funds:
@@ -246,7 +255,7 @@ Get Trade history:
   for cursor.HasMore {
     if err := cursor.NextPage(&trades); err != nil {
       for _, t := range trades {
-        println(trade.CoinbaseId)
+        println(trade.CoinbaseID)
       }
     }
   }
