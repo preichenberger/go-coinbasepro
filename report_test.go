@@ -1,4 +1,4 @@
-package gdax
+package coinbasepro
 
 import (
 	"errors"

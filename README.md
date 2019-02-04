@@ -1,18 +1,18 @@
-Go GDAX [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/preichenberger/go-gdax) [![Build Status](https://travis-ci.org/preichenberger/go-gdax.svg?branch=master)](https://travis-ci.org/preichenberger/go-gdax)
+Go coinbasepro [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)](http://godoc.org/github.com/preichenberger/go-coinbasepro) [![Build Status](https://travis-ci.org/preichenberger/go-coinbasepro.svg?branch=master)](https://travis-ci.org/preichenberger/go-coinbasepro)
 ========
 
 ## Summary
 
-Go client for [CoinBase Pro](https://pro.coinbase.com) formerly known as GDAX
+Go client for [CoinBase Pro](https://pro.coinbase.com) formerly known as coinbasepro
 
 ## Installation
 ```sh
-go get github.com/preichenberger/go-gdax
+go get github.com/preichenberger/go-coinbasepro
 ```
 ***!!! As of 0.5 this library uses strings and is not backwards compatible with previous versions, to install previous versions, please use a tool like [GoDep](https://github.com/golang/dep)***
 
 ## Documentation
-For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-gdax) documentation.
+For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbasepro) documentation.
 
 ### Setup
 How to create a client:
@@ -21,7 +21,7 @@ How to create a client:
 
 import (
   "os"
-  gdax "github.com/preichenberger/go-gdax"
+  coinbasepro "github.com/preichenberger/go-coinbasepro"
 )
 
 secret := os.Getenv("COINBASE_SECRET")
@@ -33,7 +33,7 @@ secret = "exposedsecret"
 key = "exposedkey"
 passphrase = "exposedpassphrase"
 
-client := gdax.NewClient(secret, key, passphrase)
+client := coinbasepro.NewClient(secret, key, passphrase)
 ```
 
 ### HTTP Settings
@@ -58,7 +58,7 @@ import (
   "github.com/shopspring/decimal"
 )
 
-book, err := gdax.getBook("BTC-USD", 1)
+book, err := coinbasepro.getBook("BTC-USD", 1)
 if err != nil {
     println(err.Error())  
 }
@@ -68,7 +68,7 @@ if err != nil {
     println(err.Error())  
 }
 
-order := gdax.Order{
+order := coinbasepro.Order{
   Price: lastPrice.Add(decimal.NewFromFloat(1.00)).String(),
   Size: "2.00",
   Side: "buy",
@@ -93,7 +93,7 @@ client.RetryCount = 3 # 500ms, 1500ms, 3500ms
 This library uses a cursor pattern so you don't have to keep track of pagination.
 
 ```go
-var orders []gdax.Order
+var orders []coinbasepro.Order
 cursor = client.ListOrders()
 
 for cursor.HasMore {
@@ -123,16 +123,16 @@ Listen for websocket messages
     println(err.Error())
   }
 
-  subscribe := gdax.Message{
+  subscribe := coinbasepro.Message{
     Type:      "subscribe",
-    Channels: []gdax.MessageChannel{
-      gdax.MessageChannel{
+    Channels: []coinbasepro.MessageChannel{
+      coinbasepro.MessageChannel{
         Name: "heartbeat",
         ProductIds: []string{
           "BTC-USD",
         },
       },
-      gdax.MessageChannel{
+      coinbasepro.MessageChannel{
         Name: "level2",
         ProductIds: []string{
           "BTC-USD",
@@ -145,7 +145,7 @@ Listen for websocket messages
   }
 
   for true {
-    message := gdax.Message{}
+    message := coinbasepro.Message{}
     if err := wsConn.ReadJSON(&message); err != nil {
       println(err.Error())
       break
@@ -159,15 +159,15 @@ Listen for websocket messages
 ```
 
 ### Time
-Results return coinbase time type which handles different types of time parsing that GDAX returns. This wraps the native go time type
+Results return coinbase time type which handles different types of time parsing that coinbasepro returns. This wraps the native go time type
 
 ```go
   import(
     "time"
-    gdax "github.com/preichenberger/go-gdax"
+    coinbasepro "github.com/preichenberger/go-coinbasepro"
   )
 
-  coinbaseTime := gdax.Time{}
+  coinbaseTime := coinbasepro.Time{}
   println(time.Time(coinbaseTime).Day())
 ```
 
@@ -188,7 +188,7 @@ Get Accounts:
 
 List Account Ledger:
 ```go
-  var ledgers []gdax.LedgerEntry
+  var ledgers []coinbasepro.LedgerEntry
 
   accounts, err := client.GetAccounts()
   if err != nil {
@@ -210,7 +210,7 @@ List Account Ledger:
 
 Create an Order:
 ```go
-  order := gdax.Order{
+  order := coinbasepro.Order{
     Price: "1.00",
     Size: "1.00",
     Side: "buy",
@@ -227,7 +227,7 @@ Create an Order:
 
 Transfer funds:
 ```go
-  transfer := gdax.Transfer {
+  transfer := coinbasepro.Transfer {
     Type: "deposit",
     Amount: "1.00",
   }
@@ -240,7 +240,7 @@ Transfer funds:
 
 Get Trade history:
 ```go
-  var trades []gdax.Trade
+  var trades []coinbasepro.Trade
   cursor := client.ListTrades("BTC-USD")
 
   for cursor.HasMore {
