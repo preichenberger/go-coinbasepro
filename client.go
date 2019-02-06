@@ -30,9 +30,9 @@ type ClientConfig struct {
 func NewClient() *Client {
 	client := Client{
 		BaseURL:    "https://api.pro.coinbase.com",
-		Key:        os.Getenv("COINBASE_KEY"),
-		Passphrase: os.Getenv("COINBASE_PASSPHRASE"),
-		Secret:     os.Getenv("COINBASE_SECRET"),
+		Key:        os.Getenv("COINBASE_PRO_KEY"),
+		Passphrase: os.Getenv("COINBASE_PRO_PASSPHRASE"),
+		Secret:     os.Getenv("COINBASE_PRO_SECRET"),
 		HttpClient: &http.Client{
 			Timeout: 15 * time.Second,
 		},

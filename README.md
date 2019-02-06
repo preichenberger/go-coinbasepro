@@ -24,25 +24,22 @@ go get github.com/preichenberger/go-coinbasepro
 For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbasepro) documentation.
 
 ### Setup
-How to create a client:
+Client will use environment variables: COINBASE_PRO_PASSPHRASE, COINBASE_PRO_KEY, COINBASE_PRO_SECRET by default
 
 ```go
-
 import (
-  "os"
   coinbasepro "github.com/preichenberger/go-coinbasepro/v2"
 )
 
-secret := os.Getenv("COINBASE_SECRET")
-key := os.Getenv("COINBASE_KEY")
-passphrase := os.Getenv("COINBASE_PASSPHRASE")
+client := coinbasepro.NewClient()
 
-// or unsafe hardcoded way
-secret = "exposedsecret"
-key = "exposedkey"
-passphrase = "exposedpassphrase"
-
-client := coinbasepro.NewClient(secret, key, passphrase)
+// optional, configuration can be updated with ClientConfig
+client.UpdateConfig(coinbasepro.ClientConfig{
+  BaseURL: "https://api.pro.coinbase.com",
+  Key: "coinbase pro key",
+  Passphrase: "coinbase pro passphrase",
+	Secret "coinbase pro secret",
+})
 ```
 
 ### HTTP Settings
@@ -173,7 +170,7 @@ Results return coinbase time type which handles different types of time parsing 
 ```go
   import(
     "time"
-    coinbasepro "github.com/preichenberger/go-coinbasepro"
+    coinbasepro "github.com/preichenberger/go-coinbasepro/v2"
   )
 
   coinbaseTime := coinbasepro.Time{}
@@ -264,7 +261,9 @@ Get Trade history:
 ### Testing
 To test with Coinbase's public sandbox set the following environment variables:
 ```sh
-export COINBASE_SANDBOX=true
+export COINBASE_PRO_KEY="sandbox key"
+export COINBASE_PRO_PASSPHRASE="sandbox passphrase"
+export COINBASE_PRO_SECRET="sandbox secret"
 ```
 
 Then run `go test`
