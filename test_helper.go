@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"os"
 	"reflect"
 	"time"
 
@@ -12,12 +11,10 @@ import (
 )
 
 func NewTestClient() *Client {
-	secret := os.Getenv("TEST_COINBASE_SECRET")
-	key := os.Getenv("TEST_COINBASE_KEY")
-	passphrase := os.Getenv("TEST_COINBASE_PASSPHRASE")
-
-	client := NewClient(secret, key, passphrase)
-	client.BaseURL = "https://api-public.sandbox.pro.coinbase.com"
+	client := NewClient()
+	client.UpdateConfig(&ClientConfig{
+		BaseURL: "https://api-public.sandbox.pro.coinbase.com",
+	})
 	client.HttpClient = &http.Client{
 		Timeout: 15 * time.Second,
 	}

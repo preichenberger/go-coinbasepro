@@ -37,7 +37,7 @@ secret := os.Getenv("COINBASE_SECRET")
 key := os.Getenv("COINBASE_KEY")
 passphrase := os.Getenv("COINBASE_PASSPHRASE")
 
-// or unsafe hardcode way
+// or unsafe hardcoded way
 secret = "exposedsecret"
 key = "exposedkey"
 passphrase = "exposedpassphrase"
@@ -263,11 +263,11 @@ Get Trade history:
 
 ### Testing
 To test with Coinbase's public sandbox set the following environment variables:
-  - TEST_COINBASE_SECRET
-  - TEST_COINBASE_KEY
-  - TEST_COINBASE_PASSPHRASE
+```sh
+export COINBASE_SANDBOX=true
+```
 
 Then run `go test`
 ```sh
-TEST_COINBASE_SECRET=secret TEST_COINBASE_KEY=key TEST_COINBASE_PASSPHRASE=passphrase go test
+go test
 ```
