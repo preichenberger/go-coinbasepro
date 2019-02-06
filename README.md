@@ -38,7 +38,7 @@ client.UpdateConfig(coinbasepro.ClientConfig{
   BaseURL: "https://api.pro.coinbase.com",
   Key: "coinbase pro key",
   Passphrase: "coinbase pro passphrase",
-	Secret "coinbase pro secret",
+  Secret "coinbase pro secret",
 })
 ```
 
