@@ -1,4 +1,4 @@
-package gdax
+package coinbasepro
 
 import (
 	"errors"
@@ -55,7 +55,9 @@ func TestMessageHeartbeat(t *testing.T) {
 		t.Error(errors.New("Invalid message type"))
 	}
 
-	props := []string{"Type", "Sequence", "LastTradeId", "ProductId", "Time"}
+	// LastTradeId is broken on sandbox
+	// props := []string{"Type", "Sequence", "LastTradeId", "ProductId", "Time"}"
+	props := []string{"Type", "Sequence", "ProductID", "Time"}
 	if err := EnsureProperties(message, props); err != nil {
 		t.Error(err)
 	}
@@ -89,7 +91,7 @@ func TestMessageTicker(t *testing.T) {
 		t.Error(errors.New("Invalid message type"))
 	}
 
-	props := []string{"Type", "Sequence", "ProductId", "BestBid", "BestAsk", "Price"}
+	props := []string{"Type", "Sequence", "ProductID", "BestBid", "BestAsk", "Price"}
 	if err := EnsureProperties(message, props); err != nil {
 		t.Error(err)
 	}
@@ -123,7 +125,7 @@ func TestMessageLevel2(t *testing.T) {
 		t.Error(errors.New("Invalid message type"))
 	}
 
-	props := []string{"ProductId", "Bids", "Asks"}
+	props := []string{"ProductID", "Bids", "Asks"}
 	if err := EnsureProperties(message, props); err != nil {
 		t.Error(err)
 	}

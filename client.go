@@ -1,4 +1,4 @@
-package gdax
+package coinbasepro
 
 import (
 	"bytes"
@@ -20,12 +20,19 @@ type Client struct {
 	RetryCount int
 }
 
-func NewClient(secret, key, passphrase string) *Client {
+type ClientConfig struct {
+	BaseURL    string
+	Key        string
+	Passphrase string
+	Secret     string
+}
+
+func NewClient() *Client {
 	client := Client{
 		BaseURL:    "https://api.pro.coinbase.com",
-		Secret:     secret,
-		Key:        key,
-		Passphrase: passphrase,
+		Key:        os.Getenv("COINBASE_PRO_KEY"),
+		Passphrase: os.Getenv("COINBASE_PRO_PASSPHRASE"),
+		Secret:     os.Getenv("COINBASE_PRO_SECRET"),
 		HTTPClient: &http.Client{
 			Timeout: 15 * time.Second,
 		},
@@ -33,6 +40,26 @@ func NewClient(secret, key, passphrase string) *Client {
 	}
 
 	return &client
+}
+
+func (c *Client) UpdateConfig(config *ClientConfig) {
+	baseURL := config.BaseURL
+	key := config.Key
+	passphrase := config.Passphrase
+	secret := config.Secret
+
+	if baseURL != "" {
+		c.BaseURL = baseURL
+	}
+	if key != "" {
+		c.Key = key
+	}
+	if passphrase != "" {
+		c.Passphrase = passphrase
+	}
+	if secret != "" {
+		c.Secret = secret
+	}
 }
 
 func (c *Client) Request(method string, url string,
