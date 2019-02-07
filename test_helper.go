@@ -14,7 +14,7 @@ func NewTestClient() *Client {
 	client.UpdateConfig(&ClientConfig{
 		BaseURL: "https://api-public.sandbox.pro.coinbase.com",
 	})
-	client.HttpClient = &http.Client{
+	client.HTTPClient = &http.Client{
 		Timeout: 15 * time.Second,
 	}
 	client.RetryCount = 2

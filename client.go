@@ -33,7 +33,7 @@ func NewClient() *Client {
 		Key:        os.Getenv("COINBASE_PRO_KEY"),
 		Passphrase: os.Getenv("COINBASE_PRO_PASSPHRASE"),
 		Secret:     os.Getenv("COINBASE_PRO_SECRET"),
-		HttpClient: &http.Client{
+		HTTPClient: &http.Client{
 			Timeout: 15 * time.Second,
 		},
 		RetryCount: 0,

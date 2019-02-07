@@ -49,7 +49,7 @@ import (
   "time"
 )
 
-client.HttpClient = &http.Client {
+client.HTTPClient = &http.Client {
   Timeout: 15 * time.Second,
 }
 ```
