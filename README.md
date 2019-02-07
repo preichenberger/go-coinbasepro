@@ -18,6 +18,9 @@ go get github.com/preichenberger/go-coinbasepro
 
 ### Significant releases
 Use [GoDep](https://github.com/golang/dep) to install previous releases
+```sh
+dep ensure --add github.com/preichenberger/go-gdax@0.5.7
+```
 
 - 0.5.7, last release before rename package to: coinbasepro
 - 0.5, as of 0.5 this library uses strings and is not backwards compatible
