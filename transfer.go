@@ -7,7 +7,7 @@ import (
 type Transfer struct {
 	Type              string `json:"type"`
 	Amount            string `json:"amount"`
-	CoinbaseAccountId string `json:"coinbase_account_id,string"`
+	CoinbaseAccountID string `json:"coinbase_account_id,string"`
 }
 
 func (c *Client) CreateTransfer(newTransfer *Transfer) (Transfer, error) {

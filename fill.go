@@ -5,11 +5,11 @@ import (
 )
 
 type Fill struct {
-	TradeId   int    `json:"trade_id,int"`
-	ProductId string `json:"product_id"`
+	TradeID   int    `json:"trade_id,int"`
+	ProductID string `json:"product_id"`
 	Price     string `json:"price"`
 	Size      string `json:"size"`
-	FillId    string `json:"order_id"`
+	FillID    string `json:"order_id"`
 	CreatedAt Time   `json:"created_at,string"`
 	Fee       string `json:"fee"`
 	Settled   bool   `json:"settled"`
@@ -18,18 +18,18 @@ type Fill struct {
 }
 
 type ListFillsParams struct {
-	OrderId    string
-	ProductId  string
+	OrderID    string
+	ProductID  string
 	Pagination PaginationParams
 }
 
 func (c *Client) ListFills(p ListFillsParams) *Cursor {
 	paginationParams := p.Pagination
-	if p.OrderId != "" {
-		paginationParams.AddExtraParam("order_id", p.OrderId)
+	if p.OrderID != "" {
+		paginationParams.AddExtraParam("order_id", p.OrderID)
 	}
-	if p.ProductId != "" {
-		paginationParams.AddExtraParam("product_id", p.ProductId)
+	if p.ProductID != "" {
+		paginationParams.AddExtraParam("product_id", p.ProductID)
 	}
 
 	return NewCursor(c, "GET", fmt.Sprintf("/fills"),
