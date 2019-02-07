@@ -2,9 +2,7 @@ package coinbasepro
 
 import (
 	"fmt"
-	"net/http"
 	"reflect"
-	"time"
 
 	ws "github.com/gorilla/websocket"
 )
@@ -14,9 +12,6 @@ func NewTestClient() *Client {
 	client.UpdateConfig(&ClientConfig{
 		BaseURL: "https://api-public.sandbox.pro.coinbase.com",
 	})
-	client.HTTPClient = &http.Client{
-		Timeout: 15 * time.Second,
-	}
 	client.RetryCount = 2
 
 	return client

@@ -28,8 +28,13 @@ type ClientConfig struct {
 }
 
 func NewClient() *Client {
+	baseURL := os.Getenv("COINBASE_PRO_BASEURL")
+	if baseURL == "" {
+		baseURL = "https://api.pro.coinbase.com"
+	}
+
 	client := Client{
-		BaseURL:    "https://api.pro.coinbase.com",
+		BaseURL:    baseURL,
 		Key:        os.Getenv("COINBASE_PRO_KEY"),
 		Passphrase: os.Getenv("COINBASE_PRO_PASSPHRASE"),
 		Secret:     os.Getenv("COINBASE_PRO_SECRET"),
@@ -37,6 +42,12 @@ func NewClient() *Client {
 			Timeout: 15 * time.Second,
 		},
 		RetryCount: 0,
+	}
+
+	if os.Getenv("COINBASE_PRO_SANDBOX") == "1" {
+		client.UpdateConfig(&ClientConfig{
+			BaseURL: "https://api-public.sandbox.pro.coinbase.com",
+		})
 	}
 
 	return &client

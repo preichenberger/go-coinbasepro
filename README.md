@@ -6,7 +6,7 @@ Go Coinbase Pro [![GoDoc](http://img.shields.io/badge/godoc-reference-blue.svg)]
 Go client for [CoinBase Pro](https://pro.coinbase.com) formerly known as gdax
 
 ## Installation
-If using Go modules (Go version >= 11.1) simply import as needed: github.com/preichenberger/go-coinbasepro/v2
+If using Go modules (Go version >= 11.1) simply import as needed.
 ```sh
 go mod init github.com/yourusername/yourprojectname
 ```
@@ -26,7 +26,7 @@ Use [GoDep](https://github.com/golang/dep) to install previous releases
 For full details on functionality, see [GoDoc](http://godoc.org/github.com/preichenberger/go-coinbasepro) documentation.
 
 ### Setup
-Client will use environment variables: COINBASE_PRO_PASSPHRASE, COINBASE_PRO_KEY, COINBASE_PRO_SECRET by default
+Client will respect environment variables: COINBASE_PRO_BASEURL, COINBASE_PRO_PASSPHRASE, COINBASE_PRO_KEY, COINBASE_PRO_SECRET by default
 
 ```go
 import (
@@ -43,6 +43,20 @@ client.UpdateConfig(coinbasepro.ClientConfig{
   Secret "coinbase pro secret",
 })
 ```
+
+### Sandbox
+You can switch to the sandbox URL by setting environment variable: COINBASE_PRO_SANDBOX
+
+Enable sandbox
+```sh
+export COINBASE_PRO_SANDBOX=1
+```
+
+Disable sandbox
+```sh
+export COINBASE_PRO_SANDBOX=0
+```
+
 
 ### HTTP Settings
 ```go
