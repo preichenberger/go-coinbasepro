@@ -99,7 +99,7 @@ func TestGetStats(t *testing.T) {
 		t.Error(err)
 	}
 
-	props := []string{"Low", "Open", "Volume", "Last", "Volume_30Day"}
+	props := []string{"Low", "Open", "Volume", "Last", "Volume30Day"}
 	if err := EnsureProperties(stats, props); err != nil {
 		t.Error(err)
 	}

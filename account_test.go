@@ -55,7 +55,7 @@ func TestListAccountLedger(t *testing.T) {
 			}
 
 			for _, ledger := range ledgers {
-				props := []string{"Id", "CreatedAt", "Amount", "Balance", "Type"}
+				props := []string{"ID", "CreatedAt", "Amount", "Balance", "Type"}
 				if err := EnsureProperties(ledger, props); err != nil {
 					t.Error(err)
 				}

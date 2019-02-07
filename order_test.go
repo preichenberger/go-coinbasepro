@@ -24,7 +24,7 @@ func TestCreateLimitOrders(t *testing.T) {
 		t.Error(errors.New("No create id found"))
 	}
 
-	props := []string{"Price", "Size", "Side", "ProductId"}
+	props := []string{"Price", "Size", "Side", "ProductID"}
 	_, err = CompareProperties(order, savedOrder, props)
 	if err != nil {
 		t.Error(err)
@@ -55,7 +55,7 @@ func TestCreateMarketOrders(t *testing.T) {
 		t.Error(errors.New("No create id found"))
 	}
 
-	props := []string{"Price", "Size", "Side", "ProductId"}
+	props := []string{"Price", "Size", "Side", "ProductID"}
 	_, err = CompareProperties(order, savedOrder, props)
 	if err != nil {
 		t.Error(err)
