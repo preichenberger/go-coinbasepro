@@ -16,7 +16,7 @@ type Client struct {
 	Secret     string
 	Key        string
 	Passphrase string
-	HttpClient *http.Client
+	HTTPClient *http.Client
 	RetryCount int
 }
 
@@ -124,7 +124,7 @@ func (c *Client) request(method string, url string,
 		req.Header.Add(k, v)
 	}
 
-	res, err = c.HttpClient.Do(req)
+	res, err = c.HTTPClient.Do(req)
 	if err != nil {
 		return res, err
 	}

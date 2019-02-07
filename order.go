@@ -8,7 +8,7 @@ type Order struct {
 	Type      string `json:"type"`
 	Size      string `json:"size,omitempty"`
 	Side      string `json:"side"`
-	ProductId string `json:"product_id"`
+	ProductID string `json:"product_id"`
 	ClientOID string `json:"client_oid,omitempty"`
 	Stp       string `json:"stp,omitempty"`
 	// Limit Order
@@ -19,7 +19,7 @@ type Order struct {
 	// Market Order
 	Funds string `json:"funds,omitempty"`
 	// Response Fields
-	Id            string `json:"id"`
+	ID            string `json:"id"`
 	Status        string `json:"status,omitempty"`
 	Settled       bool   `json:"settled,omitempty"`
 	DoneReason    string `json:"done_reason,omitempty"`
@@ -30,12 +30,12 @@ type Order struct {
 }
 
 type CancelAllOrdersParams struct {
-	ProductId string
+	ProductID string
 }
 
 type ListOrdersParams struct {
 	Status     string
-	ProductId  string
+	ProductID  string
 	Pagination PaginationParams
 }
 
@@ -61,8 +61,8 @@ func (c *Client) CancelAllOrders(p ...CancelAllOrdersParams) ([]string, error) {
 	var orderIDs []string
 	url := "/orders"
 
-	if len(p) > 0 && p[0].ProductId != "" {
-		url = fmt.Sprintf("%s?product_id=%s", url, p[0].ProductId)
+	if len(p) > 0 && p[0].ProductID != "" {
+		url = fmt.Sprintf("%s?product_id=%s", url, p[0].ProductID)
 	}
 
 	_, err := c.Request("DELETE", url, nil, &orderIDs)
@@ -84,8 +84,8 @@ func (c *Client) ListOrders(p ...ListOrdersParams) *Cursor {
 		if p[0].Status != "" {
 			paginationParams.AddExtraParam("status", p[0].Status)
 		}
-		if p[0].ProductId != "" {
-			paginationParams.AddExtraParam("product_id", p[0].ProductId)
+		if p[0].ProductID != "" {
+			paginationParams.AddExtraParam("product_id", p[0].ProductID)
 		}
 	}
 

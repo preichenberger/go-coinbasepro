@@ -5,7 +5,7 @@ import (
 )
 
 type Account struct {
-	Id        string `json:"id"`
+	ID        string `json:"id"`
 	Balance   string `json:"balance"`
 	Hold      string `json:"hold"`
 	Available string `json:"available"`
@@ -15,7 +15,7 @@ type Account struct {
 // Ledger
 
 type LedgerEntry struct {
-	Id        int           `json:"id,number"`
+	ID        int           `json:"id,number"`
 	CreatedAt Time          `json:"created_at,string"`
 	Amount    string        `json:"amount"`
 	Balance   string        `json:"balance"`
@@ -24,9 +24,9 @@ type LedgerEntry struct {
 }
 
 type LedgerDetails struct {
-	OrderId   string `json:"order_id"`
-	TradeId   string `json:"trade_id"`
-	ProductId string `json:"product_id"`
+	OrderID   string `json:"order_id"`
+	TradeID   string `json:"trade_id"`
+	ProductID string `json:"product_id"`
 }
 
 type GetAccountLedgerParams struct {
@@ -36,7 +36,7 @@ type GetAccountLedgerParams struct {
 // Holds
 
 type Hold struct {
-	AccountId string `json:"account_id"`
+	AccountID string `json:"account_id"`
 	CreatedAt Time   `json:"created_at,string"`
 	UpdatedAt Time   `json:"updated_at,string"`
 	Amount    string `json:"amount"`

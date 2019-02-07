@@ -16,7 +16,7 @@ type CreateReportParams struct {
 }
 
 type Report struct {
-	Id          string       `json:"id"`
+	ID          string       `json:"id"`
 	Type        string       `json:"type"`
 	Status      string       `json:"status"`
 	CreatedAt   Time         `json:"created_at,string"`
