@@ -153,13 +153,13 @@ Listen for websocket messages
     Channels: []coinbasepro.MessageChannel{
       coinbasepro.MessageChannel{
         Name: "heartbeat",
-        ProductIDs: []string{
+        ProductIds: []string{
           "BTC-USD",
         },
       },
       coinbasepro.MessageChannel{
         Name: "level2",
-        ProductIDs: []string{
+        ProductIds: []string{
           "BTC-USD",
         },
       },
@@ -176,9 +176,7 @@ Listen for websocket messages
       break
     }
 
-    if message.Type == "match" {
-      println("Got a match")
-    }
+    println(message.type)
   }
 
 ```
