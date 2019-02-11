@@ -11,6 +11,8 @@ type Order struct {
 	ProductID string `json:"product_id"`
 	ClientOID string `json:"client_oid,omitempty"`
 	Stp       string `json:"stp,omitempty"`
+	Stop      string `json:"stop,omitempty"`
+	StopPrice string `json:"stop_price,omitempty"`
 	// Limit Order
 	Price       string `json:"price,omitempty"`
 	TimeInForce string `json:"time_in_force,omitempty"`
