@@ -17,7 +17,7 @@ go get github.com/preichenberger/go-coinbasepro
 ```
 
 ### Significant releases
-Use [GoDep](https://github.com/golang/dep) to install previous releases
+Use [dep](https://github.com/golang/dep) to install previous releases
 ```sh
 dep ensure --add github.com/preichenberger/go-gdax@0.5.7
 ```
