@@ -62,7 +62,7 @@ type BookEntry struct {
 }
 
 type Book struct {
-	Sequence int         `json:"sequence"`
+	Sequence int64       `json:"sequence"`
 	Bids     []BookEntry `json:"bids"`
 	Asks     []BookEntry `json:"asks"`
 }
