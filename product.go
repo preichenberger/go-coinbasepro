@@ -198,32 +198,26 @@ func (c *Client) GetHistoricRates(product string,
 	p ...GetHistoricRatesParams) ([]HistoricRate, error) {
 	var historicRates []HistoricRate
 	requestURL := fmt.Sprintf("/products/%s/candles", product)
+	values := url.Values{}
+	layout := "2006-01-02T15:04:05Z"
 	params := GetHistoricRatesParams{}
+
 	if len(p) > 0 {
 		params = p[0]
 	}
 
-	var (
-		values = url.Values{}
-		layout = "2006-01-02T15:04:05Z"
-	)
-
-	// start
 	if !params.Start.IsZero() {
 		values.Add("start", params.Start.UTC().Format(layout))
 	}
 
-	// end
 	if !params.End.IsZero() {
 		values.Add("end", params.End.UTC().Format(layout))
 	}
 
-	// granularity
 	if params.Granularity != 0 {
 		values.Add("granularity", strconv.Itoa(params.Granularity))
 	}
 
-	// add the values, if any
 	if len(values) > 0 {
 		requestURL = fmt.Sprintf("%s?%s", requestURL, values.Encode())
 	}
