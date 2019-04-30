@@ -176,7 +176,7 @@ Listen for websocket messages
       break
     }
 
-    println(message.type)
+    println(message.Type)
   }
 
 ```

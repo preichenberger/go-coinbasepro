@@ -130,27 +130,25 @@ func TestMessageLevel2(t *testing.T) {
 		t.Error(err)
 	}
 
-	/*
-		l2 := false
-		for i := 0; i < 10; i++ {
-			message = &Message{}
-			if err = wsConn.ReadJSON(&message); err != nil {
+	l2 := false
+	for i := 0; i < 10; i++ {
+		message = &Message{}
+		if err = wsConn.ReadJSON(&message); err != nil {
+			t.Error(err)
+		}
+
+		if message.Type == "l2update" {
+			l2 = true
+			props := []string{"ProductID", "Changes"}
+			if err := EnsureProperties(message, props); err != nil {
 				t.Error(err)
 			}
 
-			if message.Type == "l2update" {
-				l2 = true
-				props := []string{"ProductId", "Changes"}
-				if err := EnsureProperties(message, props); err != nil {
-					t.Error(err)
-				}
-
-				break
-			}
+			break
 		}
+	}
 
-		if !l2 {
-			t.Error(errors.New("Did not find l2update"))
-		}
-	*/
+	if !l2 {
+		t.Error(errors.New("Did not find l2update"))
+	}
 }
