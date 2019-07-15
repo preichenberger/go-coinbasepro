@@ -83,7 +83,7 @@ import (
   "github.com/shopspring/decimal"
 )
 
-book, err := coinbasepro.getBook("BTC-USD", 1)
+book, err := client.GetBook("BTC-USD", 1)
 if err != nil {
     println(err.Error())  
 }
