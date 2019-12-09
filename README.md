@@ -228,6 +228,7 @@ List Account Ledger:
       for _, e := range ledgers {
         println(e.Amount)
       }
+    }
   }
 ```
 

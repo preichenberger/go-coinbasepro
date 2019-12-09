@@ -15,7 +15,7 @@ type Account struct {
 // Ledger
 
 type LedgerEntry struct {
-	ID        int           `json:"id,number"`
+	ID        string        `json:"id,number"`
 	CreatedAt Time          `json:"created_at,string"`
 	Amount    string        `json:"amount"`
 	Balance   string        `json:"balance"`
