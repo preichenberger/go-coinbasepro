@@ -277,14 +277,17 @@ Get Trade history:
 ```
 
 ### Testing
+
 To test with Coinbase's public sandbox set the following environment variables:
+
 ```sh
-export COINBASE_PRO_KEY="sandbox key"
-export COINBASE_PRO_PASSPHRASE="sandbox passphrase"
-export COINBASE_PRO_SECRET="sandbox secret"
+export COINBASE_PRO_KEY=$(eval echo "sandbox key" | base64)
+export COINBASE_PRO_PASSPHRASE=$(eval echo "sandbox passphrase" | base64)
+export COINBASE_PRO_SECRET=$(eval echo "sandbox secret" | base64)
 ```
 
 Then run `go test`
+
 ```sh
 go test
 ```
