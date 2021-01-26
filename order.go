@@ -19,12 +19,14 @@ type Order struct {
 	PostOnly    bool   `json:"post_only,omitempty"`
 	CancelAfter string `json:"cancel_after,omitempty"`
 	// Market Order
-	Funds string `json:"funds,omitempty"`
+	Funds          string `json:"funds,omitempty"`
+	SpecifiedFunds string `json:"specified_funds,omitempty"`
 	// Response Fields
 	ID            string `json:"id"`
 	Status        string `json:"status,omitempty"`
 	Settled       bool   `json:"settled,omitempty"`
 	DoneReason    string `json:"done_reason,omitempty"`
+	DoneAt        Time   `json:"done_at,string,omitempty"`
 	CreatedAt     Time   `json:"created_at,string,omitempty"`
 	FillFees      string `json:"fill_fees,omitempty"`
 	FilledSize    string `json:"filled_size,omitempty"`
