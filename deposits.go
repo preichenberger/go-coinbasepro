@@ -7,7 +7,7 @@ import (
 type Deposit struct {
 	Currency        string `json:"currency"`
 	Amount          string `json:"amount"`
-	PaymentMethodId string `json:"payment_method_id"` //payment method id can be determined by calling GetPaymentMethods() function
+	PaymentMethodID string `json:"payment_method_id"` //payment method id can be determined by calling GetPaymentMethods() function
 }
 
 func (c *Client) CreateDeposit(newDeposit *Deposit) (Deposit, error) {
@@ -15,7 +15,6 @@ func (c *Client) CreateDeposit(newDeposit *Deposit) (Deposit, error) {
 
 	url := fmt.Sprintf("/deposits/payment-method")
 	_, err := c.Request("POST", url, newDeposit, &savedDeposit)
-	// fmt.Printf("%v\n", blah)
 	return savedDeposit, err
 }
 
