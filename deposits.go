@@ -7,7 +7,10 @@ import (
 type Deposit struct {
 	Currency        string `json:"currency"`
 	Amount          string `json:"amount"`
-	PaymentMethodId string `json:"payment_method_id"` //payment method id can be determined by calling GetPaymentMethods() function
+	PaymentMethodID string `json:"payment_method_id"` // PaymentMethodID can be determined by calling GetPaymentMethods()
+	// Response fields
+	ID       string `json:"id,omitempty"`
+	PayoutAt Time   `json:"payout_at,string,omitempty"`
 }
 
 func (c *Client) CreateDeposit(newDeposit *Deposit) (Deposit, error) {
@@ -22,7 +25,7 @@ func (c *Client) CreateDeposit(newDeposit *Deposit) (Deposit, error) {
 type PaymentMethod struct {
 	Currency string `json:"currency"`
 	Type     string `json:"type"`
-	Id       string `json:"id"`
+	ID       string `json:"id"`
 }
 
 func (c *Client) GetPaymentMethods() ([]PaymentMethod, error) {
@@ -32,5 +35,4 @@ func (c *Client) GetPaymentMethods() ([]PaymentMethod, error) {
 	_, err := c.Request("GET", url, nil, &paymentMethods)
 
 	return paymentMethods, err
-
 }
