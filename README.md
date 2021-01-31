@@ -288,3 +288,5 @@ Then run `go test`
 ```sh
 go test
 ```
+
+Note that your sandbox account will need at least 2,000 USD and 2 BTC to run the tests.

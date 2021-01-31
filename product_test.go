@@ -13,7 +13,7 @@ func TestGetProducts(t *testing.T) {
 	}
 
 	for _, p := range products {
-		if StructHasZeroValues(p) {
+		if StructHasZeroValues(p) && p.StatusMessage != "" {
 			t.Error(errors.New("Zero value"))
 		}
 	}
