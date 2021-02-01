@@ -21,7 +21,7 @@ func (c *Client) CreateDeposit(newDeposit *Deposit) (Deposit, error) {
 type PaymentMethod struct {
 	Currency string `json:"currency"`
 	Type     string `json:"type"`
-	Id       string `json:"id"`
+	ID       string `json:"ID"`
 }
 
 func (c *Client) GetPaymentMethods() ([]PaymentMethod, error) {
