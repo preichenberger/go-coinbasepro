@@ -18,7 +18,6 @@ func (c *Client) CreateDeposit(newDeposit *Deposit) (Deposit, error) {
 
 	url := fmt.Sprintf("/deposits/payment-method")
 	_, err := c.Request("POST", url, newDeposit, &savedDeposit)
-	// fmt.Printf("%v\n", blah)
 	return savedDeposit, err
 }
 
