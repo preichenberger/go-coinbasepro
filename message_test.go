@@ -152,3 +152,34 @@ func TestMessageLevel2(t *testing.T) {
 		t.Error(errors.New("Did not find l2update"))
 	}
 }
+
+func TestMessageStatus(t *testing.T) {
+	wsConn, err := NewTestWebsocketClient()
+	if err != nil {
+		t.Error(err)
+	}
+	defer wsConn.Close()
+
+	subscribe := Message{
+		Type: "subscribe",
+		Channels: []MessageChannel{
+			MessageChannel{
+				Name: "status",
+			},
+		},
+	}
+
+	message, err := startSubscribe(wsConn, &subscribe)
+	if err != nil {
+		t.Error(err)
+	}
+
+	if message.Type != "status" {
+		t.Error(errors.New("invalid message type"))
+	}
+
+	props := []string{"Products", "Currencies"}
+	if err := EnsureProperties(message, props); err != nil {
+		t.Error(err)
+	}
+}
