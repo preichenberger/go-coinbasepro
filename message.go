@@ -8,6 +8,8 @@ type Message struct {
 	Type          string           `json:"type"`
 	ProductID     string           `json:"product_id"`
 	ProductIds    []string         `json:"product_ids"`
+	Products      []Product        `json:"products"`
+	Currencies    []Currency       `json:"currencies"`
 	TradeID       int              `json:"trade_id,number"`
 	OrderID       string           `json:"order_id"`
 	ClientOID     string           `json:"client_oid"`
