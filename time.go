@@ -1,6 +1,7 @@
 package coinbasepro
 
 import (
+	"database/sql/driver"
 	"fmt"
 	"strings"
 	"time"
@@ -63,4 +64,19 @@ func (t Time) MarshalJSON() ([]byte, error) {
 
 func (t *Time) Time() time.Time {
 	return time.Time(*t)
+}
+
+// Scan implements the sql.Scanner interface for database deserialization.
+func (t *Time) Scan(value interface{}) error {
+	timeValue, ok := value.(Time)
+	if !ok {
+		return fmt.Errorf("failed to deserialize time: %#v", value)
+	}
+	*t = timeValue
+	return nil
+}
+
+// Value implements the driver.Valuer interface for database serialization.
+func (t Time) Value() (driver.Value, error) {
+	return t.Time(), nil
 }
