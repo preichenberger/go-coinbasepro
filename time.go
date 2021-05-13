@@ -68,11 +68,11 @@ func (t *Time) Time() time.Time {
 
 // Scan implements the sql.Scanner interface for database deserialization.
 func (t *Time) Scan(value interface{}) error {
-	timeValue, ok := value.(Time)
+	timeValue, ok := value.(time.Time)
 	if !ok {
 		return fmt.Errorf("failed to deserialize time: %#v", value)
 	}
-	*t = timeValue
+	*t = Time(timeValue)
 	return nil
 }
 
