@@ -9,12 +9,12 @@ Go client for [CoinBase Pro](https://pro.coinbase.com) formerly known as gdax
 If Go modules are used (Go version >= 1.11) simply import as given beneath.
 ```sh
 go mod init github.com/yourusername/yourprojectname
-go get github.com/preichenberger/go-coinbasepro
+go get github.com/preichenberger/go-coinbasepro/v2
 ```
 
 ### Older Go versions
 ```sh
-go get github.com/preichenberger/go-coinbasepro
+go get github.com/preichenberger/go-coinbasepro/v2
 ```
 
 ### Significant releases
