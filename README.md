@@ -33,7 +33,7 @@ Client will respect environment variables: COINBASE_PRO_BASEURL, COINBASE_PRO_PA
 
 ```go
 import (
-  coinbasepro "github.com/preichenberger/go-coinbasepro"
+  coinbasepro "github.com/preichenberger/go-coinbasepro/v2"
 )
 
 client := coinbasepro.NewClient()
@@ -187,7 +187,7 @@ Results return coinbase time type which handles different types of time parsing 
 ```go
   import(
     "time"
-    coinbasepro "github.com/preichenberger/go-coinbasepro"
+    coinbasepro "github.com/preichenberger/go-coinbasepro/v2"
   )
 
   coinbaseTime := coinbasepro.Time{}
