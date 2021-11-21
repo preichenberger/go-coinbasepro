@@ -2,12 +2,33 @@ package coinbasepro
 
 import (
 	"fmt"
+	"github.com/shopspring/decimal"
 )
+
+type Details struct {
+	Type      string `json:"type"`
+	Symbol      string `json:"symbol"`
+	NetworkConfirmations      int `json:"network_confirmations"`
+	SortOrder int `json:"sort_order"`
+	CryptoAddressLink      string `json:"crypto_address_link"`
+	CryptoTransactionLink      string `json:"crypto_transaction_link"`
+	PushPaymentMethods []string `json:"push_payment_methods"`
+	GroupTypes []string `json:"group_types"`
+	DisplayName string `json:"display_name"`
+	ProcessingTimeSeconds int `json:"processing_time_seconds"`
+	MinWithdrawalAmount decimal.Decimal `json:"min_withdrawal_amount"`
+	MaxWithdrawalAmount decimal.Decimal `json:"max_withdrawal_amount"`
+}
 
 type Currency struct {
 	ID      string `json:"id"`
 	Name    string `json:"name"`
 	MinSize string `json:"min_size"`
+	Status string `json:"status"`
+	Message string `json:"message"`
+	MaxPrecision string `json:"max_precision"`
+	ConvertableTo []string `json:"convertable_to"`
+	Details Details `json:"details"`
 }
 
 func (c *Client) GetCurrencies() ([]Currency, error) {
