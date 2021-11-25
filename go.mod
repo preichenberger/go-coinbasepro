@@ -1,4 +1,4 @@
-module github.com/preichenberger/go-coinbasepro/v2
+module github.com/prowley/go-coinbasepro/v2
 
 go 1.17
 
