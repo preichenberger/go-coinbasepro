@@ -2,7 +2,6 @@ package coinbasepro
 
 import (
 	"fmt"
-	"github.com/shopspring/decimal"
 )
 
 type Details struct {
@@ -16,8 +15,6 @@ type Details struct {
 	GroupTypes []string `json:"group_types"`
 	DisplayName string `json:"display_name"`
 	ProcessingTimeSeconds int `json:"processing_time_seconds"`
-	MinWithdrawalAmount decimal.Decimal `json:"min_withdrawal_amount"`
-	MaxWithdrawalAmount decimal.Decimal `json:"max_withdrawal_amount"`
 }
 
 type Currency struct {
