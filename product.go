@@ -208,7 +208,7 @@ func (c *Client) GetProducts() ([]Product, error) {
 func (c *Client) GetProduct(id string) (Product, error) {
 	var product Product
 
-	requestURL := fmt.Sprintf("/products/" + id)
+	requestURL := fmt.Sprintf("/products/%s", id)
 	_, err := c.Request("GET", requestURL, nil, &product)
 	return product, err
 }
