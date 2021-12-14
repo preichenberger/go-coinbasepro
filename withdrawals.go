@@ -8,6 +8,7 @@ type WithdrawalCrypto struct {
 	Currency      string `json:"currency"`
 	Amount        string `json:"amount"`
 	CryptoAddress string `json:"crypto_address"`
+	ProfileID     string `json:"profile_id"`
 }
 
 type WithdrawalCoinbase struct {
