@@ -21,6 +21,20 @@ func (c *Client) CreateDeposit(newDeposit *Deposit) (Deposit, error) {
 	return savedDeposit, err
 }
 
+type CoinbaseDeposit struct {
+	Currency          string `json:"currency"`
+	Amount            string `json:"amount"`
+	CoinbaseAccountID string `json:"coinbase_account_id"`
+}
+
+func (c *Client) CreateCoinbaseDeposit(newDeposit *CoinbaseDeposit) (Deposit, error) {
+	var savedDeposit Deposit
+
+	url := fmt.Sprintf("/deposits/coinbase-account")
+	_, err := c.Request("POST", url, newDeposit, &savedDeposit)
+	return savedDeposit, err
+}
+
 type PaymentMethod struct {
 	Currency string `json:"currency"`
 	Type     string `json:"type"`
