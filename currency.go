@@ -17,3 +17,11 @@ func (c *Client) GetCurrencies() ([]Currency, error) {
 	_, err := c.Request("GET", url, nil, &currencies)
 	return currencies, err
 }
+
+func (c *Client) GetCurrency(currencyID string) (Currency, error) {
+	var currency Currency
+
+	url := fmt.Sprintf("/currencies/%s", currencyID)
+	_, err := c.Request("GET", url, nil, &currency)
+	return currency, err
+}
