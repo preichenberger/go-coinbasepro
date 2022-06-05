@@ -10,16 +10,16 @@ import (
 )
 
 type Product struct {
-	ID              string `json:"id"`
-	BaseCurrency    string `json:"base_currency"`
-	QuoteCurrency   string `json:"quote_currency"`
-	BaseMinSize     string `json:"base_min_size"`
-	BaseMaxSize     string `json:"base_max_size"`
-	QuoteIncrement  string `json:"quote_increment"`
-	BaseIncrement   string `json:"base_increment"`
-	DisplayName     string `json:"display_name"`
-	MinMarketFunds  string `json:"min_market_funds"`
-	MaxMarketFunds  string `json:"max_market_funds"`
+	ID            string `json:"id"`
+	BaseCurrency  string `json:"base_currency"`
+	QuoteCurrency string `json:"quote_currency"`
+	//	BaseMinSize     string `json:"base_min_size"` deprecated on 2022-06-30, see https://docs.cloud.coinbase.com/exchange/docs/changelog#2022-jun-02
+	//	BaseMaxSize     string `json:"base_max_size"` deprecated on 2022-06-30, see https://docs.cloud.coinbase.com/exchange/docs/changelog#2022-jun-02
+	QuoteIncrement string `json:"quote_increment"`
+	BaseIncrement  string `json:"base_increment"`
+	DisplayName    string `json:"display_name"`
+	MinMarketFunds string `json:"min_market_funds"`
+	//	MaxMarketFunds  string `json:"max_market_funds"` deprecated on 2022-06-30, see https://docs.cloud.coinbase.com/exchange/docs/changelog#2022-jun-02
 	MarginEnabled   bool   `json:"margin_enabled"`
 	PostOnly        bool   `json:"post_only"`
 	LimitOnly       bool   `json:"limit_only"`
